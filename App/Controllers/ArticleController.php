@@ -17,5 +17,13 @@ class ArticleController
         echo include 'App/Views/article.view.php';
     }
 
+    public  function showCategoryPage() {
+        echo include 'App/Views/categoryPage.view.php';
+    }
+
+    public  function showHome() {
+        echo include 'App/Views/home.view.php';
+    }
+
 
 }

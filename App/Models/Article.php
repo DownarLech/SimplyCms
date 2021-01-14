@@ -21,7 +21,3 @@ class Article
 
 
 }
-
-require 'view/index.view.php';
-require 'view/article.view.php';
-require 'view/newArticle.view.php';

@@ -12,7 +12,8 @@
     <label for="title">Title:</label><br>
     <input type="text" id="title" name="title"><br>
     <label for="content">Content:</label><br>
-    <input type="text" id="content" name="content"><br><br>
+    <textarea id="content" name="content"></textarea>
+    <br><br>
     <input type="submit" value="Submit">
 </form>
 

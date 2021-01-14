@@ -30,6 +30,14 @@ switch ($class) {
         $articleController = new ArticleController();
         $articleController->showArticle();
         break; }
+    case 'category': {
+        $articleController = new ArticleController();
+        $articleController->showCategoryPage();
+        break; }
+    case 'home': {
+        $articleController = new ArticleController();
+        $articleController->showHome();
+        break; }
     default:
         //var_dump(http_response_code(404));
         echo "<h1>404 Not Found</h1>";
