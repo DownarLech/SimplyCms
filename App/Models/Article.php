@@ -1,12 +1,13 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
+
+namespace App\Models;
 
 class Article
 {
 
 
-    public $title;
-    public $content;
+    public string $title;
+    public string $content;
 
     /**
      * Article constructor.
