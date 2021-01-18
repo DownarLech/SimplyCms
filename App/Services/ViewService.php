@@ -1,18 +1,18 @@
 <?php
 
+declare(strict_types=1);
 
-namespace App\Controllers;
+namespace App\Services;
 
-
-class BaseViewController
+class ViewService
 {
 
-    protected \Smarty $smarty;
-    protected string $template;
+    private \Smarty $smarty;
+    private string $template;
 
-    public function __construct($template)
+    public function __construct()
     {
-        $this->template = dirname(__DIR__,1).'/Smarty/templates/'.$template;
+        $this->template = '';
 
         $this->smarty = new \Smarty();
 
@@ -23,10 +23,17 @@ class BaseViewController
 
     }
 
+    /**
+     * @param string $template
+     */
+    public function setTemplate($template): void
+    {
+        $this->template = dirname(__DIR__,1).'/Smarty/templates/'.$template;
+    }
+
 
     public function action(): void
     {
-
         try {
             $this->smarty->display($this->template);
         } catch (\SmartyException $e) {
@@ -34,5 +41,9 @@ class BaseViewController
         }
     }
 
+    public function assignName(string $name) {
+        $this->smarty->assign('name', $name);
+
+    }
 
 }

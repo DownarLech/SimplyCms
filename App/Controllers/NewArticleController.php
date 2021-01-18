@@ -6,7 +6,7 @@ namespace App\Controllers;
 
 use App\Services\ViewService;
 
-class CategoryController
+class NewArticleController
 {
     private ViewService $viewService;
 
@@ -18,8 +18,6 @@ class CategoryController
 
     public function setHomeTemplate(): void
     {
-        $this->viewService->setTemplate('categoryPage.tpl');
+        $this->viewService->setTemplate('newArticle.tpl');
     }
-
-
 }

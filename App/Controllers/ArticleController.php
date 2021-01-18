@@ -1,43 +1,24 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\Services\ViewService;
 
 class ArticleController
 {
+private ViewService $viewService;
 
-
-
-
-
-
-
-
-
-
-
-
-
-    /*
-    public  function action() : void {
-         echo include 'App/Views/index.view.php';
+    public function __construct(ViewService $viewService)
+    {
+        $this->viewService = $viewService;
     }
 
-    public  function showNewArticle() : void {
-        echo include 'App/Views/newArticle.view.php';
-    }
 
-    public  function showArticle() : void {
-        echo include 'App/Views/article.view.php';
+    public function setHomeTemplate(): void
+    {
+        $this->viewService->setTemplate('article.tpl');
     }
-
-    public  function showCategoryPage() : void {
-        echo include 'App/Views/categoryPage.view.php';
-    }
-
-    public  function showHome() {
-        echo include 'App/Views/home.view.php';
-    }
-*/
 
 }
