@@ -5,53 +5,51 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
-//use App\Controllers\ArticleController;
-
-//require __DIR__ . '/vendor/autoload.php';
-
-//$class = $_GET['page'];
-
-/*
-if ($class === 'article') {
-    $articleController = new ArticleController();
-    $articleController->action();
-}
-*/
-
-require('/home/developer/PhpstormProjects/SimplyCms/App/Smarty/libs/Smarty.class.php');
+use App\Controllers\BaseViewController;
+use App\Controllers\HomeController;
+use App\Controllers\CategoryController;
 
 
-$smarty = new Smarty();
 
-$smarty->setTemplateDir('App/Smarty/templates');
-$smarty->setCompileDir('App/Smarty/templates_c');
-$smarty->setCacheDir('App/Smarty/cache');
-$smarty->setConfigDir('App/Smarty/configs');
+define('SMARTY_DIR', '/usr/local/lib/php/Smarty/libs/');
+require_once(SMARTY_DIR . 'Smarty.class.php');
 
 
-$smarty->assign('name', 'Ned');
-$smarty->display('index.tpl');
+
+$index = new HomeController('home.tpl');
+$index->assignName();
+$index->action();
+
+
+
+
+//$smarty->assign('name', 'Ned');
+//$smarty->display('index.tpl');
 
 
 /*
-switch ($class) {
-    case 'article': {
+ *
+ * $class = $_GET['page'];
+
+switch ($_GET) {
+    case $_GET('page') === 'article':
+    case $_GET['article']: {
         $articleController = new ArticleController();
         $articleController->action();
 } break;
-    case 'new': {
+    case $_GET['new']: {
         $articleController = new ArticleController();
         $articleController->showNewArticle();
         break; }
-    case 'show': {
+    case $_GET['show']: {
         $articleController = new ArticleController();
         $articleController->showArticle();
         break; }
-    case 'category': {
+    case $_GET['category']: {
         $articleController = new ArticleController();
         $articleController->showCategoryPage();
         break; }
-    case 'home': {
+    case $_GET['home']: {
         $articleController = new ArticleController();
         $articleController->showHome();
         break; }
