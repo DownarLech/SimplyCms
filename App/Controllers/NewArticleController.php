@@ -16,7 +16,7 @@ class NewArticleController
     }
 
 
-    public function setHomeTemplate(): void
+    public function addTemplate(): void
     {
         $this->viewService->setTemplate('newArticle.tpl');
     }

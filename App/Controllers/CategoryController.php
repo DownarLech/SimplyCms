@@ -16,7 +16,7 @@ class CategoryController
     }
 
 
-    public function setHomeTemplate(): void
+    public function addTemplate(): void
     {
         $this->viewService->setTemplate('categoryPage.tpl');
     }

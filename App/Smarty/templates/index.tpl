@@ -1,9 +1,6 @@
-<html>
-<head>
-    <title>Smarty</title>
-</head>
-<body>
+{include file="parts/header.tpl" title="Index"}
+
 <h1>Index</h1>
 Hello, {$name}!
-</body>
-</html>
+
+{include file="parts/footer.tpl"}

@@ -32,7 +32,7 @@ class ViewService
     }
 
 
-    public function action(): void
+    public function display(): void
     {
         try {
             $this->smarty->display($this->template);

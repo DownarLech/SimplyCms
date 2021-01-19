@@ -16,7 +16,7 @@ private ViewService $viewService;
     }
 
 
-    public function setHomeTemplate(): void
+    public function addTemplate(): void
     {
         $this->viewService->setTemplate('article.tpl');
     }

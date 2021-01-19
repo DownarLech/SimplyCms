@@ -17,7 +17,7 @@ class HomeController
     }
 
 
-    public function setHomeTemplate(): void
+    public function addTemplate(): void
     {
         $this->viewService->setTemplate('home.tpl');
     }

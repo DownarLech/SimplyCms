@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{include file="parts/header.tpl" title="Article"}
+
 <h1>Make new article</h1>
 Hello, {$name}!
 
-
-</body>
-</html>
+{include file="parts/footer.tpl"};
