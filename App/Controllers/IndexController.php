@@ -8,6 +8,7 @@ use App\Services\ViewService;
 
 class IndexController
 {
+    public static string $name= 'index';
     private ViewService $viewService;
 
     public function __construct(ViewService $viewService)

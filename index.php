@@ -7,23 +7,48 @@ error_reporting(E_ALL);
 
 require 'vendor/autoload.php';
 
-use App\Controllers\HomeController;
-use App\Controllers\CategoryController;
-use App\Controllers\IndexController;
-use App\Controllers\NewArticleController;
-use App\Controllers\ArticleController;
 use App\Services\ViewService;
+use App\Services\Container;
+use App\Services\ControllerProvider;
+use App\Controllers\ErrorController;
 
 
 define('SMARTY_DIR', '/usr/local/lib/php/Smarty/libs/');
 require_once(SMARTY_DIR . 'Smarty.class.php');
 
 
-$view = new ViewService();
+
+$properCont = new ViewService();
+
+$provider = new ControllerProvider();
+$controllerList = $provider->getList();
+
+$page = $_GET['page'];
+$checked = false;
+
+if(isset($page)){
+    foreach ($controllerList as $controller){
+
+        if($page === ($controller::$name)) {
+            $checked = true;
+            $controller = new $controller($properCont);
+            $controller->addTemplate();
+            $properCont->assignName($page);
+            $properCont->display();
+        }
+    }
+}
+if(!$checked) {
+    $controller = new ErrorController($properCont);
+    $controller->addTemplate();
+    $properCont->display();
+}
 
 
-//$page = $_GET['page'];
 
+//$view = new ViewService();
+
+ /*
 switch ($_GET) {
     case $_GET['page'] === 'home': {
     //case $_GET['home']: {
@@ -51,6 +76,8 @@ switch ($_GET) {
 $class->addTemplate();
 $view->assignName($_GET['page'] );
 $view->display();
+
+ */
 
 
 

@@ -8,6 +8,7 @@ use App\Services\ViewService;
 
 class CategoryController
 {
+    public static string $name= 'category';
     private ViewService $viewService;
 
     public function __construct(ViewService $viewService)

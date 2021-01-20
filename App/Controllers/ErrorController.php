@@ -6,9 +6,10 @@ namespace App\Controllers;
 
 use App\Services\ViewService;
 
-class NewArticleController
+class ErrorController
 {
-    public static string $name= 'newArticle';
+
+    public static string $name= 'error';
     private ViewService $viewService;
 
     public function __construct(ViewService $viewService)
@@ -19,6 +20,8 @@ class NewArticleController
 
     public function addTemplate(): void
     {
-        $this->viewService->setTemplate('newArticle.tpl');
+        $this->viewService->setTemplate('error.tpl');
     }
+
+
 }

@@ -9,6 +9,7 @@ use App\Services\ViewService;
 class HomeController
 {
 
+    public static string $name= 'home';
     private ViewService $viewService;
 
     public function __construct(ViewService $viewService)

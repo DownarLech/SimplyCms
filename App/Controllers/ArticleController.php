@@ -8,7 +8,8 @@ use App\Services\ViewService;
 
 class ArticleController
 {
-private ViewService $viewService;
+    public static string $name= 'article';
+    private ViewService $viewService;
 
     public function __construct(ViewService $viewService)
     {
