@@ -7,11 +7,12 @@ namespace App\Controllers;
 use App\Models\ProductRepository;
 use App\Services\ViewService;
 
-class CategoryController
+class ProductController
 {
-    public const NAME= 'category';
+    public const NAME= 'product';
     private ViewService $viewService;
     private ProductRepository $productRepository;
+
 
     public function __construct(ViewService $viewService)
     {
@@ -20,14 +21,15 @@ class CategoryController
     }
 
     public function action() : void {
-        $this->viewService->setTemplate('categoryPage.tpl');
+        $this->viewService->setTemplate('product.tpl');
         $this->viewService->addTlpParam('ProductList', $this->productRepository->getProductList());
     }
 
+
+
     public function addTemplate(): void
     {
-        $this->viewService->setTemplate('categoryPage.tpl');
+        $this->viewService->setTemplate('product.tpl');
     }
-
 
 }

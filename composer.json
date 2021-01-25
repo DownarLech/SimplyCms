@@ -6,7 +6,8 @@
   },
 
   "require": {
-    "smarty/smarty": "~3.1"
+    "smarty/smarty": "~3.1",
+    "ext-json": "*"
   }
   ,
   "require-dev": {

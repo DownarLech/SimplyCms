@@ -8,13 +8,19 @@ use App\Services\ViewService;
 
 class IndexController
 {
-    public static string $name= 'index';
+    public const NAME = 'index';
     private ViewService $viewService;
 
     public function __construct(ViewService $viewService)
     {
         $this->viewService = $viewService;
     }
+
+    public function action() : void {
+        $this->viewService->setTemplate('index.tpl');
+        //$this->viewService->addTlpParam('ProductList', $this->productRepository->getProductList());
+    }
+
 
 
     public function addTemplate(): void

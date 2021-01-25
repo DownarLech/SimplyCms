@@ -43,7 +43,11 @@ class ViewService
 
     public function assignName(string $name) {
         $this->smarty->assign('name', $name);
+    }
 
+    public function addTlpParam(string $name, $value): void
+    {
+        $this->smarty->assign($name, $value);
     }
 
 }

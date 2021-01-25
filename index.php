@@ -7,6 +7,7 @@ error_reporting(E_ALL);
 
 require 'vendor/autoload.php';
 
+use App\Models\ProductRepository;
 use App\Services\ViewService;
 use App\Services\Container;
 use App\Services\ControllerProvider;
@@ -17,6 +18,9 @@ define('SMARTY_DIR', '/usr/local/lib/php/Smarty/libs/');
 require_once(SMARTY_DIR . 'Smarty.class.php');
 
 
+//$container = new Container();
+//$container->set(ViewService::class, new ViewService());
+//$properCont = $container->get(ViewService::class);
 
 $properCont = new ViewService();
 
@@ -29,10 +33,11 @@ $checked = false;
 if(isset($page)){
     foreach ($controllerList as $controller){
 
-        if($page === ($controller::$name)) {
+        if($page === $controller::NAME) {
             $checked = true;
             $controller = new $controller($properCont);
-            $controller->addTemplate();
+            $controller->action();
+            //$controller->addTemplate();
             $properCont->assignName($page);
             $properCont->display();
         }
@@ -45,39 +50,12 @@ if(!$checked) {
 }
 
 
+//$temp= new ProductRepository();
 
-//$view = new ViewService();
+//die(var_dump($temp->getProductList()));
+//die(var_dump($temp->getProduct(2)));
 
- /*
-switch ($_GET) {
-    case $_GET['page'] === 'home': {
-    //case $_GET['home']: {
-        $class = new HomeController($view);
-        break; }
-    case $_GET['page'] === 'index': {
-        $class = new IndexController($view);
-        break; }
-    case $_GET['page'] === 'category': {
-        $class = new CategoryController($view);
-        break; }
-    case $_GET['page'] === 'newArticle': {
-        $class = new NewArticleController($view);
-        break; }
-    case $_GET['page'] === 'article': {
-        $class = new ArticleController($view);
-        break; }
-    default:
-        //var_dump(http_response_code(404));
-        echo "<h1>404 Not Found</h1>";
-        echo 'The page that you have requested could not be found.';
-        break;
-}
 
-$class->addTemplate();
-$view->assignName($_GET['page'] );
-$view->display();
-
- */
 
 
 

@@ -4,23 +4,23 @@
 namespace App\Services;
 
 
-use App\Controllers\ArticleController;
+use App\Controllers\ProductController;
 use App\Controllers\CategoryController;
 use App\Controllers\ErrorController;
 use App\Controllers\HomeController;
 use App\Controllers\IndexController;
-use App\Controllers\NewArticleController;
+use App\Controllers\NewProductController;
 
 class ControllerProvider
 {
     public function getList() : array {
 
         return [
-            ArticleController::class,
+            ProductController::class,
             CategoryController::class,
             HomeController::class,
             IndexController::class,
-            NewArticleController::class,
+            NewProductController::class,
             ErrorController::class
         ];
     }
