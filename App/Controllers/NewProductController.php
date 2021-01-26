@@ -18,7 +18,7 @@ class NewProductController
 
     public function action() : void {
         $this->viewService->setTemplate('newProduct.tpl');
-        //$this->viewService->addTlpParam('ProductList', $this->productRepository->getProductList());
+        //$this->viewService->addTlpParam('productList', $this->productRepository->getProductList());
     }
 
 

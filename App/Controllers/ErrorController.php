@@ -19,7 +19,6 @@ class ErrorController
 
     public function action() : void {
         $this->viewService->setTemplate('error.tpl');
-        //$this->viewService->addTlpParam('ProductList', $this->productRepository->getProductList());
     }
 
 

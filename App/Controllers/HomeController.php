@@ -19,7 +19,7 @@ class HomeController
 
     public function action() : void {
         $this->viewService->setTemplate('home.tpl');
-        //$this->viewService->addTlpParam('ProductList', $this->productRepository->getProductList());
+        //$this->viewService->addTlpParam('productList', $this->productRepository->getProductList());
     }
 
 

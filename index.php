@@ -37,23 +37,21 @@ if(isset($page)){
             $checked = true;
             $controller = new $controller($properCont);
             $controller->action();
-            //$controller->addTemplate();
-            $properCont->assignName($page);
+            $properCont->addTlpParam('name',$page);
             $properCont->display();
         }
     }
 }
 if(!$checked) {
     $controller = new ErrorController($properCont);
-    $controller->addTemplate();
+    $controller->action();
     $properCont->display();
 }
 
-
 //$temp= new ProductRepository();
-
 //die(var_dump($temp->getProductList()));
 //die(var_dump($temp->getProduct(2)));
+
 
 
 

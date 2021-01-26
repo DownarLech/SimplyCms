@@ -27,8 +27,6 @@ class ProductRepository
             throw new \Exception("Decode json file failed");
         }
 
-        //$this->productList=$json_a;
-
         $this->productMapper = new ProductMapper();
 
         if(!empty($json_a)) {
@@ -48,7 +46,6 @@ class ProductRepository
 
     public function getProduct(int $id) : ProductDataTransferObject
     {
-
         if(!$this->hasProduct($id)) {
             throw new \Exception("This product is no in the database.");
         }
