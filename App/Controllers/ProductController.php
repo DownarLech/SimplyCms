@@ -21,11 +21,19 @@ class ProductController
     }
 
     public function action() : void {
-        $this->viewService->setTemplate('product.tpl');
-        $this->viewService->addTlpParam('ProductList', $this->productRepository->getProductList());
+
+        try {
+            $pageId = (int)$_GET['id'];
+            if (!$pageId) {
+                throw new \Exception();
+            }
+            $this->viewService->addTlpParam('product', $this->productRepository->getProduct($pageId));
+            $this->viewService->setTemplate('product.tpl');
+
+        } catch (\Exception $e) {
+            $this->viewService->setTemplate('error.tpl');
+        }
     }
-
-
 
     public function addTemplate(): void
     {

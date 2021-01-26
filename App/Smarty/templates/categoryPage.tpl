@@ -2,18 +2,18 @@
 
 <h1>Product List</h1>
 Hello, {$name}!
+<br><br>
+
 
 <ul>
-    {foreach $ProductList as $product}
+    {foreach $productList as $product}
         <br>
-        {foreach $product as $value}
-            <li>{$value@key}: {$value}</li>
-        {/foreach}
+        <li><a href="http://localhost:8080/index.php?page=product&id={$product->getId()}">{$product->getId()}</a></li>
+        <li>{$product->getName()}</li>
+        <li>{$product->getDescription()}</li>
         <br>
     {/foreach}
 </ul>
-
-
 
 
 {include file="parts/footer.tpl"}

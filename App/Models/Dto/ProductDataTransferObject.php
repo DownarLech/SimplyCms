@@ -1,8 +1,10 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace App\Models;
+declare(strict_types=1);
 
-class Product
+namespace App\Models\Dto;
+
+class ProductDataTransferObject
 {
 
 
@@ -11,16 +13,13 @@ class Product
     private string $description;
 
     /**
-     * Product constructor.
-     * @param int $id
-     * @param string $name
-     * @param string $description
+     * ProductDataTransferObject constructor.
      */
-    public function __construct(int $id, string $name, string $description)
+    public function __construct()
     {
-        $this->id = $id;
-        $this->name = $name;
-        $this->description = $description;
+        $this->id = 0;
+        $this->name = ' ';
+        $this->description = ' ';
     }
 
     /**

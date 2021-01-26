@@ -1,45 +1,53 @@
 <?php
 
+declare(strict_types=1);
+
 
 namespace App\Models;
 
+use App\Models\Dto\ProductDataTransferObject;
+use App\Models\Mapper\ProductMapper;
 
 class ProductRepository
 {
     private array $productList;
+    private ProductMapper $productMapper;
 
 
     public function __construct()
     {
-
-    }
-
-
-    public function loadData()
-    {
-
-        $string = file_get_contents("/home/developer/PhpstormProjects/SimplyCms/productList.json");
-        if ($string === false) {
+        $url = __DIR__ ."/../../productList.json";
+        $data = file_get_contents($url);
+        if ($data === false) {
             throw new \Exception("Load file to string failed.");
         }
 
-        $json_a = json_decode($string, true);
+        $json_a = json_decode($data, true);
         if ($json_a === null) {
             throw new \Exception("Decode json file failed");
         }
 
-        $this->productList=$json_a;
+        //$this->productList=$json_a;
+
+        $this->productMapper = new ProductMapper();
+
+        if(!empty($json_a)) {
+            foreach ($json_a as $product) {
+                $this->productList[(int)$product['id']] = $this->productMapper->map($product);
+            }
+        }
     }
+
 
 
     public function getProductList(): array
     {
-        $this->loadData();
         return $this->productList;
     }
 
 
-    public function getProduct(int $id) {
+    public function getProduct(int $id) : ProductDataTransferObject
+    {
 
         if(!$this->hasProduct($id)) {
             throw new \Exception("This product is no in the database.");
@@ -53,5 +61,4 @@ class ProductRepository
         return isset($this->productList[$id]);
 
     }
-
 }

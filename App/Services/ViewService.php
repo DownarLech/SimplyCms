@@ -26,7 +26,7 @@ class ViewService
     /**
      * @param string $template
      */
-    public function setTemplate($template): void
+    public function setTemplate(string $template): void
     {
         $this->template = dirname(__DIR__,1).'/Smarty/templates/'.$template;
     }
