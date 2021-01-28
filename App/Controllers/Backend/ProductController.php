@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Controllers;
+namespace App\Controllers\Backend;
 
 use App\Models\ProductRepository;
+use App\Services\UserSession;
 use App\Services\ViewService;
 
 class ProductController
@@ -12,12 +13,20 @@ class ProductController
     public const NAME= 'product';
     private ViewService $viewService;
     private ProductRepository $productRepository;
+    private UserSession $userSession;
 
 
     public function __construct(ViewService $viewService)
     {
         $this->viewService = $viewService;
         $this->productRepository = new ProductRepository();
+        $this->userSession = new UserSession();
+    }
+
+    public function init() : void {
+        if(!$this->userSession->isLogIn()) {
+            $this->redirectToBackend();
+        }
     }
 
     public function action() : void {
@@ -40,4 +49,9 @@ class ProductController
         $this->viewService->setTemplate('product.tpl');
     }
 
+    private function redirectToBackend():void
+    {
+        header('Location: http://localhost:8080/index.php?page=login&admin=true');
+
+    }
 }

@@ -1,4 +1,4 @@
-{include file="parts/header.tpl" title="ProductDataTransferObject"}
+{include file="parts/header.tpl" title="Product"}
 
 <h1>Product</h1>
 Hello, {$name}!

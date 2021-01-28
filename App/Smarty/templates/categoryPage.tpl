@@ -8,7 +8,7 @@ Hello, {$name}!
 <ul>
     {foreach $productList as $product}
         <br>
-        <li><a href="http://localhost:8080/index.php?page=product&id={$product->getId()}">{$product->getId()}</a></li>
+        <li><a href="http://localhost:8080/index.php?page=product&id={$product->getId()}&admin=true">{$product->getId()}</a></li>
         <li>{$product->getName()}</li>
         <li>{$product->getDescription()}</li>
         <br>

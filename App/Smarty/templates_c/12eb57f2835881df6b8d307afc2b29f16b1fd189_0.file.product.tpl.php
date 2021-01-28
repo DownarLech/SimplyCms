@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.36, created on 2021-01-26 07:27:21
+/* Smarty version 3.1.36, created on 2021-01-28 14:03:48
   from '/home/developer/PhpstormProjects/SimplyCms/App/Smarty/templates/product.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.36',
-  'unifunc' => 'content_600fb6491bb439_86889680',
+  'unifunc' => 'content_6012b6348d86f6_63031324',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '12eb57f2835881df6b8d307afc2b29f16b1fd189' => 
     array (
       0 => '/home/developer/PhpstormProjects/SimplyCms/App/Smarty/templates/product.tpl',
-      1 => 1611609242,
+      1 => 1611825674,
       2 => 'file',
     ),
   ),
@@ -22,8 +22,8 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:parts/footer.tpl' => 1,
   ),
 ),false)) {
-function content_600fb6491bb439_86889680 (Smarty_Internal_Template $_smarty_tpl) {
-$_smarty_tpl->_subTemplateRender("file:parts/header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array('title'=>"ProductDataTransferObject"), 0, false);
+function content_6012b6348d86f6_63031324 (Smarty_Internal_Template $_smarty_tpl) {
+$_smarty_tpl->_subTemplateRender("file:parts/header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array('title'=>"Product"), 0, false);
 ?>
 
 <h1>Product</h1>

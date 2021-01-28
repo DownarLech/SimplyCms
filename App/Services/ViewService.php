@@ -37,7 +37,6 @@ class ViewService
         try {
             $this->smarty->display($this->template);
         } catch (\SmartyException $e) {
-        } catch (\Exception $e) {
         }
     }
 

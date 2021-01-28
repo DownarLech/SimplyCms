@@ -11,7 +11,7 @@ use App\Models\ProductRepository;
 use App\Services\ViewService;
 use App\Services\Container;
 use App\Services\ControllerProvider;
-use App\Controllers\ErrorController;
+use App\Controllers\Frontend\ErrorController;
 
 
 define('SMARTY_DIR', '/usr/local/lib/php/Smarty/libs/');
@@ -25,10 +25,17 @@ require_once(SMARTY_DIR . 'Smarty.class.php');
 $properCont = new ViewService();
 
 $provider = new ControllerProvider();
-$controllerList = $provider->getList();
+//$controllerList = $provider->getList();
 
 $page = $_GET['page'];
 $checked = false;
+$isAdmin = (!empty($_GET['admin']) && $_GET['admin'] === 'true');
+
+if ($isAdmin) {
+    $controllerList = $provider->getBackEndList();
+} else {
+    $controllerList = $provider->getFrontEndList();
+}
 
 if(isset($page)){
     foreach ($controllerList as $controller){
@@ -36,17 +43,21 @@ if(isset($page)){
         if($page === $controller::NAME) {
             $checked = true;
             $controller = new $controller($properCont);
+            if($isAdmin) {
+                $controller->init();
+            }
             $controller->action();
-            $properCont->addTlpParam('name',$page);
-            $properCont->display();
         }
     }
 }
 if(!$checked) {
     $controller = new ErrorController($properCont);
     $controller->action();
-    $properCont->display();
 }
+
+$properCont->addTlpParam('name',$page);
+$properCont->display();
+
 
 //$temp= new ProductRepository();
 //die(var_dump($temp->getProductList()));

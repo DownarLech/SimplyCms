@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Controllers;
+namespace App\Controllers\Frontend;
 
 use App\Services\ViewService;
 
-class ErrorController
+class HomeController
 {
 
-    public const NAME= 'error';
+    public const NAME= 'home';
     private ViewService $viewService;
 
     public function __construct(ViewService $viewService)
@@ -18,15 +18,14 @@ class ErrorController
     }
 
     public function action() : void {
-        $this->viewService->setTemplate('error.tpl');
+        $this->viewService->setTemplate('home.tpl');
+        //$this->viewService->addTlpParam('productList', $this->productRepository->getProductList());
     }
-
 
 
     public function addTemplate(): void
     {
-        $this->viewService->setTemplate('error.tpl');
+        $this->viewService->setTemplate('home.tpl');
     }
-
 
 }

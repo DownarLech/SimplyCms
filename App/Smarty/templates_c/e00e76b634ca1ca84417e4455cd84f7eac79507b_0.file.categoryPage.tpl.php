@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.36, created on 2021-01-26 08:00:42
+/* Smarty version 3.1.36, created on 2021-01-28 14:03:46
   from '/home/developer/PhpstormProjects/SimplyCms/App/Smarty/templates/categoryPage.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.36',
-  'unifunc' => 'content_600fbe1aad2687_43352702',
+  'unifunc' => 'content_6012b632d61864_04939304',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'e00e76b634ca1ca84417e4455cd84f7eac79507b' => 
     array (
       0 => '/home/developer/PhpstormProjects/SimplyCms/App/Smarty/templates/categoryPage.tpl',
-      1 => 1611642603,
+      1 => 1611839022,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:parts/footer.tpl' => 1,
   ),
 ),false)) {
-function content_600fbe1aad2687_43352702 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6012b632d61864_04939304 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender("file:parts/header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array('title'=>"Category page"), 0, false);
 ?>
 
@@ -41,7 +41,7 @@ $_smarty_tpl->tpl_vars['product']->do_else = false;
 ?>
         <br>
         <li><a href="http://localhost:8080/index.php?page=product&id=<?php echo $_smarty_tpl->tpl_vars['product']->value->getId();?>
-"><?php echo $_smarty_tpl->tpl_vars['product']->value->getId();?>
+&admin=true"><?php echo $_smarty_tpl->tpl_vars['product']->value->getId();?>
 </a></li>
         <li><?php echo $_smarty_tpl->tpl_vars['product']->value->getName();?>
 </li>

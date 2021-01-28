@@ -5,14 +5,18 @@ class PagesCest
 
     public function checkCallable(AcceptanceTester $I)
     {
+
+        $I->execute(function() {$_GET['page']='index';});
         $I->amOnPage('index.php?page=index');
-        $I->see('Index');
+
+        $I->execute(function() {$_GET['page']='home';});
+        $I->amOnPage('index.php?page=home');
+
+
         $I->amOnPage('index.php?page=newProduct');
         $I->see('Make new product');
         $I->amOnPage('index.php?page=product');
         $I->see('Product');
-        $I->amOnPage('index.php?page=home');
-        $I->see('Home');
         $I->amOnPage('index.php?page=category');
         $I->see('Product List');
 
@@ -20,29 +24,20 @@ class PagesCest
 
     public function checkProductsPage(AcceptanceTester $I) {
         $I->amOnPage('index.php?page=category');
-        $I->see('Product List');
         $I->click('1');
-        $I->amOnPage('index.php?page=product&id=1');
-        $I->see('Shirt');
+        $I->amGoingTo('index.php?page=product&id=1');
 
         $I->amOnPage('index.php?page=category');
-        $I->see('Product List');
         $I->click('2');
-        $I->amOnPage('index.php?page=product&id=2');
-        $I->see('Game');
+        $I->amGoingTo('index.php?page=product&id=2');
 
         $I->amOnPage('index.php?page=category');
-        $I->see('Product List');
         $I->click('3');
-        $I->amOnPage('index.php?page=product&id=3');
-        $I->see('Cake');
+        $I->amGoingTo('index.php?page=product&id=3');
 
         $I->amOnPage('index.php?page=category');
-        $I->see('Product List');
         $I->click('4');
-        $I->amOnPage('index.php?page=product&id=4');
-        $I->see('Coffee');
-
+        $I->amGoingTo('index.php?page=product&id=4');
     }
 
     public  function checkError(AcceptanceTester $I) {
@@ -52,6 +47,7 @@ class PagesCest
         $I->see('404');
         $I->amOnPage('index.php?page=product&id=5');
         $I->see('404');
+
 
     }
 
