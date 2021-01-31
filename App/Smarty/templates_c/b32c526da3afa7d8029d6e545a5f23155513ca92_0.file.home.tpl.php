@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.36, created on 2021-01-19 11:26:48
+/* Smarty version 3.1.36, created on 2021-01-31 20:05:15
   from '/home/developer/PhpstormProjects/SimplyCms/App/Smarty/templates/home.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.36',
-  'unifunc' => 'content_6006b3e8204002_87604451',
+  'unifunc' => 'content_6016ff6b0c3d72_00637493',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b32c526da3afa7d8029d6e545a5f23155513ca92' => 
     array (
       0 => '/home/developer/PhpstormProjects/SimplyCms/App/Smarty/templates/home.tpl',
-      1 => 1611051999,
+      1 => 1612119911,
       2 => 'file',
     ),
   ),
@@ -22,13 +22,61 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:parts/footer.tpl' => 1,
   ),
 ),false)) {
-function content_6006b3e8204002_87604451 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6016ff6b0c3d72_00637493 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender("file:parts/header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array('title'=>"Home"), 0, false);
 ?>
 
-<h1>Home</h1>
-Hello, <?php echo $_smarty_tpl->tpl_vars['name']->value;?>
-!
+<div class="container">
+    <div class="=row row-my-nr1">
+
+        <div class="row">
+            <div class="col-lg-2">
+            </div>
+            <div class="col-lg-8 text-center row-my-nr1">
+                <h1>Welcome to the New Super Shop</h1>
+            </div>
+            <div class="col-lg-2">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-8">
+
+                <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner" role="listbox">
+                        <div class="carousel-item active">
+                            <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+    </div>
+
+
+</div>
 
 <?php $_smarty_tpl->_subTemplateRender("file:parts/footer.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 }

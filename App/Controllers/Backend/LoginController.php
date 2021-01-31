@@ -29,19 +29,13 @@ class LoginController implements BackendController
     public function init(): void
     {
         if ($this->userSession->isLogIn()) {
-           // $this->redirectToBackend();
+            //$this->redirectToBackend();
         }
     }
 
     public function action(): void
     {
-        $this->authenticate();
 
-    }
-
-
-    private function authenticate(): void
-    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!empty(trim($_POST['username'])) && !empty(trim($_POST['password']))) {
                 $username = (string)trim($_POST['username']);
@@ -57,7 +51,7 @@ class LoginController implements BackendController
         $this->viewService->setTemplate('login.tpl');
     }
 
-    private function redirectToBackend():void
+    private function redirectToBackend(): void
     {
         header('Location: http://localhost:8080/index.php?page=category&admin=true');
         //$this->viewService->setTemplate('category');

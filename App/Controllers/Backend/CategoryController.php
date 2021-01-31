@@ -24,7 +24,7 @@ class CategoryController
 
     public function init() : void {
         if(!$this->userSession->isLogIn()) {
-            $this->redirectToBackend();
+            //$this->redirectToBackend();
         }
     }
 

@@ -10,7 +10,7 @@ use App\Services\ViewService;
 
 class ProductController
 {
-    public const NAME= 'product';
+    public const NAME = 'product';
     private ViewService $viewService;
     private ProductRepository $productRepository;
     private UserSession $userSession;
@@ -23,13 +23,15 @@ class ProductController
         $this->userSession = new UserSession();
     }
 
-    public function init() : void {
-        if(!$this->userSession->isLogIn()) {
-            $this->redirectToBackend();
+    public function init(): void
+    {
+        if (!$this->userSession->isLogIn()) {
+            //$this->redirectToBackend();
         }
     }
 
-    public function action() : void {
+    public function action(): void
+    {
 
         try {
             $pageId = (int)$_GET['id'];
@@ -49,7 +51,7 @@ class ProductController
         $this->viewService->setTemplate('product.tpl');
     }
 
-    private function redirectToBackend():void
+    private function redirectToBackend(): void
     {
         header('Location: http://localhost:8080/index.php?page=login&admin=true');
 
