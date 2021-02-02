@@ -5,9 +5,10 @@
 <div class="container">
     <div class="row justify-content-center align-items-center row-my-nr1">
         <div class="list-group">
+            <h5>Products List</h5>
             {foreach $productList as $product}
             <a href="http://localhost:8080/index.php?page=product&id={$product->getId()}&admin=true"
-               class="list-group-item list-group-item-action flex-column align-items-start">
+               class="list-group-item list-group-item-action flex-column align-items-start" id="link">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1">{$product->getName()}</h5>
                     <small>Product id:{$product->getId()}</small>

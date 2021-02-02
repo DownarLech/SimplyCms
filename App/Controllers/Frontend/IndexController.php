@@ -21,11 +21,4 @@ class IndexController
         //$this->viewService->addTlpParam('productList', $this->productRepository->getProductList());
     }
 
-
-
-    public function addTemplate(): void
-    {
-        $this->viewService->setTemplate('index.tpl');
-    }
-
 }

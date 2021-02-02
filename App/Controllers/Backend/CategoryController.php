@@ -33,10 +33,6 @@ class CategoryController
         $this->viewService->addTlpParam('productList', $this->productRepository->getProductList());
     }
 
-    public function addTemplate(): void
-    {
-        $this->viewService->setTemplate('categoryPage.tpl');
-    }
 
     private function redirectToBackend():void
     {

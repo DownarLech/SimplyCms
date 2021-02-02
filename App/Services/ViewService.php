@@ -10,6 +10,8 @@ class ViewService
     private \Smarty $smarty;
     private string $template;
 
+    private array $params = [];
+
     public function __construct()
     {
         $this->template = '';
@@ -35,18 +37,32 @@ class ViewService
     public function display(): void
     {
         try {
+            $this->smarty->assign($this->params);
             $this->smarty->display($this->template);
         } catch (\SmartyException $e) {
         }
     }
 
-    public function assignName(string $name) {
-        $this->smarty->assign('name', $name);
-    }
-
     public function addTlpParam(string $name, $value): void
     {
-        $this->smarty->assign($name, $value);
+        $this->params[$name] = $value;
     }
+
+    /**
+     * @return string
+     */
+    public function getTemplate(): string
+    {
+        return $this->template;
+    }
+
+    /**
+     * @return array
+     */
+    public function getParams(): array
+    {
+        return $this->params;
+    }
+
 
 }

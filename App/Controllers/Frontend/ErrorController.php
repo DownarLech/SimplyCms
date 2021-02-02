@@ -21,12 +21,4 @@ class ErrorController
         $this->viewService->setTemplate('error.tpl');
     }
 
-
-
-    public function addTemplate(): void
-    {
-        $this->viewService->setTemplate('error.tpl');
-    }
-
-
 }

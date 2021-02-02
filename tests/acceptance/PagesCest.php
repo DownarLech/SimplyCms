@@ -17,26 +17,26 @@ class PagesCest
         $I->see('Make new product');
         $I->amOnPage('index.php?page=product');
         $I->see('Product');
-        $I->amOnPage('index.php?page=category');
-        $I->see('Product List');
+        $I->amOnPage('index.php?page=category&admin=true');
+        $I->see('Products List');
 
     }
 
     public function checkProductsPage(AcceptanceTester $I) {
-        $I->amOnPage('index.php?page=category');
+        $I->amOnPage('index.php?page=category&admin=true');
         $I->click('1');
         $I->amGoingTo('index.php?page=product&id=1');
 
         $I->amOnPage('index.php?page=category');
-        $I->click('2');
+        $I->click('#link');
         $I->amGoingTo('index.php?page=product&id=2');
 
         $I->amOnPage('index.php?page=category');
-        $I->click('3');
+        $I->click('#link');
         $I->amGoingTo('index.php?page=product&id=3');
 
         $I->amOnPage('index.php?page=category');
-        $I->click('4');
+        $I->click('#link');
         $I->amGoingTo('index.php?page=product&id=4');
     }
 

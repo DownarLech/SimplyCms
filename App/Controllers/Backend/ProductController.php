@@ -34,7 +34,11 @@ class ProductController
     {
 
         try {
-            $pageId = (int)$_GET['id'];
+            $pageId = 0;
+            if(isset($_GET['id'])) {
+                $pageId = (int)$_GET['id'];
+            }
+
             if (!$pageId) {
                 throw new \Exception();
             }
@@ -42,14 +46,12 @@ class ProductController
             $this->viewService->setTemplate('product.tpl');
 
         } catch (\Exception $e) {
+            //dump(__FILE__ . '/' . __LINE__);
+
             $this->viewService->setTemplate('error.tpl');
         }
     }
 
-    public function addTemplate(): void
-    {
-        $this->viewService->setTemplate('product.tpl');
-    }
 
     private function redirectToBackend(): void
     {
