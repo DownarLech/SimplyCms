@@ -35,6 +35,16 @@ class ProductControllerTest extends \Codeception\Test\Unit
         //self::assertContains('id',$one);
     }
 
+    public function testError()
+    {
+        $viewService = new ViewService();
+        $product = new ProductController($viewService);
+        $_GET['id'] = 0;
+        $product->action();
+
+        self::assertStringEndsWith('error.tpl', $viewService->getTemplate());
+        //$this->expectException(Exception::class);
+    }
 
 
     /*

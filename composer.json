@@ -1,25 +1,26 @@
 {
-    "autoload": {
-        "psr-4": {
-            "App\\": "App/"
-        }
-    },
-    "require": {
-        "smarty/smarty": "~3.1",
-        "ext-json": "*"
-    },
-    "require-dev": {
-        "roave/security-advisories": "dev-master",
-        "phpunit/phpunit": "^9.5",
-        "codeception/codeception": "^4.1",
-        "codeception/module-phpbrowser": "^1.0.0",
-        "codeception/module-asserts": "^1.0.0",
-        "symfony/var-dumper": "^5.2",
-        "phpunit/php-code-coverage": "^9.2"
-    },
-    "config": {
-        "platform": {
-            "php": "7.4"
-        }
+  "autoload": {
+    "psr-4": {
+      "App\\": "App/"
     }
+  },
+  "require": {
+    "smarty/smarty": "~3.1",
+    "ext-json": "*",
+    "ext-pdo": "*"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-master",
+    "phpunit/phpunit": "^9.5",
+    "codeception/codeception": "^4.1",
+    "codeception/module-phpbrowser": "^1.0.0",
+    "codeception/module-asserts": "^1.0.0",
+    "symfony/var-dumper": "^5.2",
+    "phpunit/php-code-coverage": "^9.2"
+  },
+  "config": {
+    "platform": {
+      "php": "7.4"
+    }
+  }
 }

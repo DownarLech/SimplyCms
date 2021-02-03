@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Controllers\Backend;
 
 use App\Models\ProductRepository;
+use App\Services\SQLConnector;
 use App\Services\UserSession;
 use App\Services\ViewService;
+use InvalidArgumentException;
 
 class ProductController
 {

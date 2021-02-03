@@ -7,35 +7,41 @@ namespace App\Models;
 
 use App\Models\Dto\ProductDataTransferObject;
 use App\Models\Mapper\ProductMapper;
+use App\Services\SQLConnector;
+use PDO;
 
 class ProductRepository
 {
     private array $productList;
     private ProductMapper $productMapper;
+    private SQLConnector $connector;
 
 
     public function __construct()
     {
-        $url = __DIR__ ."/../../productList.json";
-        $data = file_get_contents($url);
-        if ($data === false) {
-            throw new \Exception("Load file to string failed.");
-        }
-
-        $json_a = json_decode($data, true);
-        if ($json_a === null) {
-            throw new \Exception("Decode json file failed");
-        }
-
+        $this->connector = new SQLConnector();
         $this->productMapper = new ProductMapper();
+        $this->getData('Products');
 
-        if(!empty($json_a)) {
-            foreach ($json_a as $product) {
-                $this->productList[(int)$product['id']] = $this->productMapper->map($product);
-            }
-        }
     }
 
+    public function getData($table): void
+    {
+        $this->connector->connect();
+        $pdo = $this->connector->get();
+
+        $stm = $pdo->query('Select * from ' . $table);
+
+        $arrayData = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+        if (!empty($arrayData)) {
+            foreach ($arrayData as $product) {
+                $this->productList[(int)$product['id']] = $this->productMapper->map($product);
+            }
+        } else {
+            throw new \Exception("This database is empty.");
+        }
+    }
 
 
     public function getProductList(): array
@@ -44,16 +50,17 @@ class ProductRepository
     }
 
 
-    public function getProduct(int $id) : ProductDataTransferObject
+    public function getProduct(int $id): ProductDataTransferObject
     {
-        if(!$this->hasProduct($id)) {
+        if (!$this->hasProduct($id)) {
             throw new \Exception("This product is no in the database.");
         }
         return $this->productList[$id];
     }
 
 
-    public function hasProduct(int $id) : bool {
+    public function hasProduct(int $id): bool
+    {
 
         return isset($this->productList[$id]);
 

@@ -16,7 +16,6 @@ class ProductMapper
         $productDataTransferObject->setDescription($product['description']);
 
         return $productDataTransferObject;
-
     }
 
 }
