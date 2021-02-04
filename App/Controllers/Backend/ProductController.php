@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controllers\Backend;
 
 use App\Models\ProductRepository;
+use App\Services\Redirect;
 use App\Services\SQLConnector;
 use App\Services\UserSession;
 use App\Services\ViewService;
@@ -16,6 +17,7 @@ class ProductController
     private ViewService $viewService;
     private ProductRepository $productRepository;
     private UserSession $userSession;
+    private Redirect $redirect;
 
 
     public function __construct(ViewService $viewService)
@@ -23,12 +25,13 @@ class ProductController
         $this->viewService = $viewService;
         $this->productRepository = new ProductRepository();
         $this->userSession = new UserSession();
+        $this->redirect = new Redirect();
     }
 
     public function init(): void
     {
         if (!$this->userSession->isLogIn()) {
-            //$this->redirectToBackend();
+            //$this->redirectToBackend('index.php?page=login&admin=true');
         }
     }
 
@@ -54,10 +57,4 @@ class ProductController
         }
     }
 
-
-    private function redirectToBackend(): void
-    {
-        header('Location: http://localhost:8080/index.php?page=login&admin=true');
-
-    }
 }

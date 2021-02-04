@@ -17,7 +17,7 @@ use App\Controllers\Frontend\ErrorController;
 define('SMARTY_DIR', '/usr/local/lib/php/Smarty/libs/');
 require_once(SMARTY_DIR . 'Smarty.class.php');
 
-
+session_start();
 //$container = new Container();
 //$container->set(ViewService::class, new ViewService());
 //$properCont = $container->get(ViewService::class);

@@ -6,6 +6,7 @@ namespace App\Controllers\Backend;
 
 use App\Controllers\BackendController;
 use App\Models\UserRepository;
+use App\Services\Redirect;
 use App\Services\UserSession;
 use App\Services\ViewService;
 
@@ -16,6 +17,7 @@ class LoginController implements BackendController
     private ViewService $viewService;
     private UserRepository $userRepository;
     private UserSession $userSession;
+    private Redirect $redirect;
 
 
     public function __construct(ViewService $viewService)
@@ -23,13 +25,14 @@ class LoginController implements BackendController
         $this->viewService = $viewService;
         $this->userRepository = new UserRepository();
         $this->userSession = new UserSession();
+        $this->redirect = new Redirect();
     }
 
 
     public function init(): void
     {
-        if ($this->userSession->isLogIn()) {
-            //$this->redirectToBackend();
+        if (!$this->userSession->isLogIn()) {
+           // $this->redirect->redirectToBackend('index.php?page=home');
         }
     }
 
@@ -42,20 +45,13 @@ class LoginController implements BackendController
                 $password = (string)trim($_POST['password']);
                 if ($this->userRepository->hasUser($username, $password)) {
                     $this->userSession->steUserName($username);
-                    $this->redirectToBackend();
+                    $this->redirect->redirectToBackend('index.php?page=category&admin=true');
                 }
                 $this->viewService->setTemplate('error.tpl');
             }
         }
 
         $this->viewService->setTemplate('login.tpl');
-    }
-
-    private function redirectToBackend(): void
-    {
-        header('Location: http://localhost:8080/index.php?page=category&admin=true');
-        //$this->viewService->setTemplate('category');
-
     }
 
 }
