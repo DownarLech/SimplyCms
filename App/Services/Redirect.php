@@ -9,13 +9,11 @@ namespace App\Services;
 class Redirect
 {
 
-    public function redirectToBackend($target): void
+    public function redirectToBackend(string $target): void
     {
-        header('Location: http://localhost:8080/' . $target);
+        header('Location: http://localhost:8080/'.$target);
         //$this->viewService->setTemplate('category');
-        exit();
-
+        //exit();
     }
-
 
 }

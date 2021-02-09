@@ -8,24 +8,30 @@ use PDO;
 
 class QueryBuilder
 {
-    protected PDO $pdo;
+    private PDO $pdo;
 
-    public function __construct($pdo)
+    public function __construct(SQLConnector $connector)
     {
-        $this->pdo = $pdo;
+        $this->pdo = $connector->get();
     }
 
-    public function selectAll($table): array
+    public function fetchAll($query): array
     {
-        $stm = $this->pdo->query('Select * from ' . $table);
+        $stm = $this->pdo->query($query);
         return $stm->fetchAll(PDO::FETCH_ASSOC);
+
     }
 
-    public function selectItemWhereId(int $id, string $table)
+    public function fetchOne($query)
     {
-        $stm = $this->pdo->query('Select * from '.$table.' Where id='.$id);
+        $stm = $this->pdo->query($query);
         return $stm->fetch(PDO::FETCH_ASSOC);
 
+    }
+
+    public function queryMake($query) //zmienic nazwe
+    {
+        return $this->pdo->exec($query);
     }
 
 }

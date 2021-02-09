@@ -20,14 +20,12 @@ class SQLConnector
         } catch (\PDOException $e) {
             die($e->getMessage());
         }
-
     }
 
 
-   public function get(): object
+   public function get(): PDO
     {
         return $this->pdo;
-
     }
 
     private function set(string $dBname, string $host, string $user, string $pass): void

@@ -11,7 +11,7 @@ class LoginControllerTest extends \Codeception\Test\Unit
     protected $tester;
 
 
-    public function testSetUp()
+    public function testSetUp(): void
     {
         $viewService = new ViewService();
         $login = new LoginController($viewService);
@@ -20,22 +20,20 @@ class LoginControllerTest extends \Codeception\Test\Unit
         $_POST['username'] = 'John';
         $_POST['password'] = 'a';
 
-        $login->action();
         $login->init();
-
+        $login->action();
     }
 
 
-    public function testLoginLogic()
+    public function testLoginLogic(): void
     {
         $this->testSetUp();
 
         self::assertNotEmpty($_POST['username']);
         self::assertNotEmpty($_POST['password']);
-
     }
 
-    public function testSession()
+    public function testSession(): void
     {
         self::assertSame(session_status(), PHP_SESSION_ACTIVE);
     }

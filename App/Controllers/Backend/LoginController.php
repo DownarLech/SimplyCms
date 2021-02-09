@@ -32,7 +32,7 @@ class LoginController implements BackendController
     public function init(): void
     {
         if (!$this->userSession->isLogIn()) {
-           // $this->redirect->redirectToBackend('index.php?page=home');
+           //$this->redirect->redirectToBackend('index.php?page=home');
         }
     }
 
