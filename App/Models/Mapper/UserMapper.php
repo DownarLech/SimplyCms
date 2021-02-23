@@ -14,6 +14,7 @@ class UserMapper
         $userDataTransferObject->setId((int)$user['id']);
         $userDataTransferObject->setUserName($user['username']);
         $userDataTransferObject->setPassword($user['password']);
+        $userDataTransferObject->setUserRole($user['userrole']);
 
         return $userDataTransferObject;
     }

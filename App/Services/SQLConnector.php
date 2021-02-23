@@ -13,15 +13,14 @@ class SQLConnector
 
     public function __construct()
     {
+
         try {
-            $this->set('SimplyCmsDB', 'localhost', 'root','12Mysql#');
-            //$this->set('mysql:dbname='.$this->dBname.';host='.$this->host.'',$this->user,$this->pass);
+            $this->set($_ENV['DB_DATABASE'],$_ENV['DB_HOST'], $_ENV['DB_USERNAME'], $_ENV['DB_PASSWORD']);
 
         } catch (\PDOException $e) {
             die($e->getMessage());
         }
     }
-
 
    public function get(): PDO
     {
@@ -31,7 +30,6 @@ class SQLConnector
     private function set(string $dBname, string $host, string $user, string $pass): void
     {
         $this->pdo = new PDO('mysql:dbname='.$dBname.';host='.$host.'',$user,$pass);
-       //$this->pdo = new PDO($dsn,$user,$pass);
         $this->pdo->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
     }
 

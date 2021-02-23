@@ -8,9 +8,37 @@ namespace App\Models\Dto;
 class UserDataTransferObject
 {
     private int $id;
-    private string $userName ='';
-    private string $password = '';
+    private string $userName;
+    private string $password;
+    private string $userRole;
 
+    /**
+     * UserDataTransferObject constructor.
+     */
+    public function __construct()
+    {
+        $this->id = 0;
+        $this->userName = '';
+        $this->password = '';
+        $this->userRole = '';
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getUserRole(): string
+    {
+        return $this->userRole;
+    }
+
+    /**
+     * @param string $userRole
+     */
+    public function setUserRole(string $userRole): void
+    {
+        $this->userRole = $userRole;
+    }
 
     /**
      * @return int

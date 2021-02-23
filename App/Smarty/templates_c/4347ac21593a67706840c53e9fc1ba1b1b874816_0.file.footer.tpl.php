@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.36, created on 2021-01-30 22:50:18
+/* Smarty version 3.1.36, created on 2021-02-17 12:19:38
   from '/home/developer/PhpstormProjects/SimplyCms/App/Smarty/templates/parts/footer.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.36',
-  'unifunc' => 'content_6015d49a984f86_10313762',
+  'unifunc' => 'content_602cfbca2a4139_29110257',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4347ac21593a67706840c53e9fc1ba1b1b874816' => 
     array (
       0 => '/home/developer/PhpstormProjects/SimplyCms/App/Smarty/templates/parts/footer.tpl',
-      1 => 1612043276,
+      1 => 1613560743,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6015d49a984f86_10313762 (Smarty_Internal_Template $_smarty_tpl) {
+function content_602cfbca2a4139_29110257 (Smarty_Internal_Template $_smarty_tpl) {
 ?><footer class="py-5 bg-dark">
     <div class="container">
         <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>

@@ -8,72 +8,56 @@ namespace App\Models;
 
 use App\Models\Dto\UserDataTransferObject;
 use App\Models\Mapper\UserMapper;
+use App\Services\Container;
+use App\Services\QueryBuilder;
+use App\Services\SQLConnector;
 
 class UserRepository
 {
-    private array $userList;
+    private array $userList = [];
     private UserMapper $userMapper;
+    private SQLConnector $sqlConnector;
+    private QueryBuilder $queryBuilder;
 
-    public function __construct()
+    public function __construct(SQLConnector $sqlConnector)
     {
-        try {
-            $this->getFromDB();
-        } catch (\Exception $e) {
-
-        }
+        $this->userMapper = new UserMapper();
+        $this->sqlConnector = $sqlConnector;
+        $this->queryBuilder = new QueryBuilder($this->sqlConnector);
     }
 
     public function getUserList(): array
     {
+        //$arrayData = $this->queryBuilder->prepareExecuteFetchAll('Select * from Users');
+        $arrayData = $this->queryBuilder->selectAll('Users');
+
+        foreach ($arrayData as $user) {
+            $this->userList[(int)$user['id']] = $this->userMapper->map($user);
+        }
         return $this->userList;
     }
 
-    public function getUser(string $username, string $password): UserDataTransferObject
+    public function getUser(string $username, string $password): ?UserDataTransferObject
     {
-        if(!$this->hasUser($username, $password)){
-            throw new \Exception("This user is no in the database.");
+        $arrayData = $this->queryBuilder->prepareExecuteFetchOne("SELECT * FROM  Users WHERE userName = '" . $username . "'  AND password = '" . $password . "';");
+
+        //$arrayData = $this->queryBuilder->selectOneWhereUserNameAndPassword('Users', $username, $password);
+
+        if (!$arrayData) {
+            return null;
+            //throw new \OutOfBoundsException('This user is not in database');
         }
-        return $this->userList[$username];
+        return $this->userMapper->map($arrayData);
     }
 
-    public function hasUser(string $username, string $password): bool
+    public function getUserById(int $id): ?UserDataTransferObject
     {
-        $checked =false;
-        foreach ($this->userList as $user) {
-            if ($user->getUserName() === $username && $user->getPassword() === $password) {
-                $checked = true;
-            }
+        $arrayData = $this->queryBuilder->prepareExecuteFetchOne("SELECT * FROM  Users WHERE id = '" . $id . "'");
+        //$arrayData = $this->queryBuilder->selectOneWhereId('Users', $id);
+        if (!$arrayData) {
+            return null;
         }
-        return $checked;
+        return $this->userMapper->map($arrayData);
     }
-
-    //    private function getFromDB(string $data): void
-
-    private function getFromDB(): void
-    {
-        $url = __DIR__ ."/../../userList.json";
-        $data = file_get_contents($url);
-        if ($data === false) {
-            throw new \Exception("Load file to string failed.");
-        }
-
-        $json_a = json_decode($data, true);
-        if ($json_a === null) {
-            throw new \Exception("Decode json file failed");
-        }
-
-        $this->userMapper = new UserMapper();
-
-        if(!empty($json_a)) {
-            foreach ($json_a as $user) {
-                $this->userList[(int)$user['id']] = $this->userMapper->map($user);
-            }
-        }
-    }
-
-    private function makeArrayResult(): array
-    {
-    }
-
 
 }

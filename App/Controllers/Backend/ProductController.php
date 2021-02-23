@@ -4,74 +4,87 @@ declare(strict_types=1);
 
 namespace App\Controllers\Backend;
 
+use App\Controllers\BackendController;
 use App\Models\Dto\ProductDataTransferObject;
 use App\Models\ProductManager;
 use App\Models\ProductRepository;
+use App\Services\Container;
 use App\Services\Redirect;
 use App\Services\SQLConnector;
 use App\Services\UserSession;
 use App\Services\ViewService;
-use InvalidArgumentException;
 
-class ProductController
+
+class ProductController implements BackendController
 {
     public const NAME = 'product';
     private ViewService $viewService;
     private ProductRepository $productRepository;
     private UserSession $userSession;
     private Redirect $redirect;
+    private SQLConnector $sqlConnector;
     private ProductManager $productManager;
 
 
-    public function __construct(ViewService $viewService)
+    public function __construct(Container $container)
     {
-        $this->viewService = $viewService;
-        $this->productRepository = new ProductRepository();
-        $this->userSession = new UserSession();
-        $this->redirect = new Redirect();
+        $this->viewService = $container->get(ViewService::class);
+        $this->sqlConnector = $container->get(SQLConnector::class);
+        $this->userSession = $container->get(UserSession::class);
+        $this->redirect = $container->get(Redirect::class);
+        $this->productRepository = $container->get(ProductRepository::class);
+        $this->productManager = $container->get(ProductManager::class);
     }
 
     public function init(): void
     {
         if (!$this->userSession->isLogIn()) {
-            //$this->redirectToBackend('index.php?page=login&admin=true');
+            $this->redirect->redirectToBackend('index.php?page=category&admin=true');
         }
     }
 
     public function action(): void
     {
-
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             switch ($_POST) {
                 case (isset($_POST['save'])):
-                    if (!empty(trim($_POST['productname'])) && !empty(trim($_POST['description'])))
-                    {
-                        $productId = (int)trim($_POST['productId']);
+                    if (!empty(trim($_POST['productname'])) && !empty(trim($_POST['description']))) {
+                        if (!empty($_POST['save'])) {
+                            $productId = (int)trim($_POST['save']);
+                        } else {
+                            $productId = 0;
+                        }
                         $productName = (string)trim($_POST['productname']);
                         $description = (string)trim($_POST['description']);
                         $this->saveProduct($productId, $productName, $description);
 
                         $this->redirect->redirectToBackend('index.php?page=category&admin=true');
                     }
-                    $this->viewService->setTemplate('newProduct.tpl');
                     break;
                 case (isset($_POST['delete'])):
-
+                    $productId = (int)$_POST['delete'];
+                    $this->deleteProduct($productId);
+                    $this->redirect->redirectToBackend('index.php?page=category&admin=true');
+                    break;
             }
         }
-        $this->leadView();
+        $this->loadView();
+    }
+
+    public function deleteProduct(int $productId): void
+    {
+        $productDataTransferObject = $this->productRepository->getProduct($productId);
+        $this->productManager->delete($productDataTransferObject);
     }
 
 
     public function saveProduct(int $productId, string $productName, string $description): void
     {
-        if ($this->productRepository->getProduct($productId)) {
+        //$productId = $this->productRepository->getProduct($productId);
+        if ($productId !== 0) {
             $productDataTransferObject = $this->productRepository->getProduct($productId);
-            try {
-                $productDataTransferObject->setId($productId);
-            } catch (InvalidArgumentException $e) {
-                echo 'is null';
-            }
+
+            $productDataTransferObject->setId($productId);
 
         } else {
             $productDataTransferObject = new ProductDataTransferObject();
@@ -84,7 +97,7 @@ class ProductController
     }
 
 
-    public function leadView(): void
+    public function loadView(): void
     {
         try {
             $pageId = 0;

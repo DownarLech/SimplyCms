@@ -6,7 +6,9 @@ namespace App\Controllers\Backend;
 
 use App\Controllers\BackendController;
 use App\Models\UserRepository;
+use App\Services\Container;
 use App\Services\Redirect;
+use App\Services\SQLConnector;
 use App\Services\UserSession;
 use App\Services\ViewService;
 
@@ -20,19 +22,20 @@ class LoginController implements BackendController
     private Redirect $redirect;
 
 
-    public function __construct(ViewService $viewService)
+    public function __construct(Container $container)
     {
-        $this->viewService = $viewService;
-        $this->userRepository = new UserRepository();
-        $this->userSession = new UserSession();
-        $this->redirect = new Redirect();
+        $this->viewService = $container->get(ViewService::class);
+        $this->userRepository = $container->get(UserRepository::class);
+        $this->userSession = $container->get(UserSession::class);
+        $this->redirect = $container->get(Redirect::class);
     }
 
 
     public function init(): void
     {
         if (!$this->userSession->isLogIn()) {
-           //$this->redirect->redirectToBackend('index.php?page=home');
+            $_SESSION['username']=true;
+            $this->redirect->redirectToBackend('index.php?page=login&admin=true');
         }
     }
 
@@ -43,14 +46,13 @@ class LoginController implements BackendController
             if (!empty(trim($_POST['username'])) && !empty(trim($_POST['password']))) {
                 $username = (string)trim($_POST['username']);
                 $password = (string)trim($_POST['password']);
-                if ($this->userRepository->hasUser($username, $password)) {
+                if ($this->userRepository->getUser($username, $password)) {
                     $this->userSession->steUserName($username);
                     $this->redirect->redirectToBackend('index.php?page=category&admin=true');
                 }
                 $this->viewService->setTemplate('error.tpl');
             }
         }
-
         $this->viewService->setTemplate('login.tpl');
     }
 

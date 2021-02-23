@@ -6,11 +6,10 @@ namespace App\Models\Dto;
 
 class ProductDataTransferObject
 {
-
-
     private int $id;
     private string $name;
     private string $description;
+
 
     /**
      * ProductDataTransferObject constructor.

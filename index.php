@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+session_start();
+
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
@@ -8,21 +10,22 @@ error_reporting(E_ALL);
 require 'vendor/autoload.php';
 
 use App\Models\ProductRepository;
+use App\Services\DependencyProvider;
 use App\Services\ViewService;
 use App\Services\Container;
 use App\Services\ControllerProvider;
 use App\Controllers\Frontend\ErrorController;
 
-
 define('SMARTY_DIR', '/usr/local/lib/php/Smarty/libs/');
 require_once(SMARTY_DIR . 'Smarty.class.php');
 
-session_start();
-//$container = new Container();
-//$container->set(ViewService::class, new ViewService());
-//$properCont = $container->get(ViewService::class);
 
-$properCont = new ViewService();
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
+$container = new Container();
+$containerProvider = new DependencyProvider();
+$containerProvider->providerDependency($container);
 
 $provider = new ControllerProvider();
 //$controllerList = $provider->getList();
@@ -42,7 +45,7 @@ if(isset($page)){
 
         if($page === $controller::NAME) {
             $checked = true;
-            $controller = new $controller($properCont);
+            $controller = new $controller($container);
             if($isAdmin) {
                 $controller->init();
             }
@@ -51,21 +54,15 @@ if(isset($page)){
     }
 }
 if(!$checked) {
-    $controller = new ErrorController($properCont);
+    $controller = new ErrorController($container);
     $controller->action();
 }
 
-$properCont->addTlpParam('name',$page);
-$properCont->display();
+$viewServices = $container->get(ViewService::class);
+$viewServices->addTlpParam('name',$page);
+$viewServices->display();
 
 
 //$temp= new ProductRepository();
 //die(var_dump($temp->getProductList()));
 //die(var_dump($temp->getProduct(2)));
-
-
-
-
-
-
-

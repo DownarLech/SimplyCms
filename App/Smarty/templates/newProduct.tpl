@@ -6,7 +6,7 @@ Hello, {$name}!
 <div class="container">
     <form method="post" action="">
 
-        <label for="productId">Product name:</label>
+        <label for="productId">Product ID:</label>
         <input type="text" name="productId">
 
         <label for="productname">Product name:</label>

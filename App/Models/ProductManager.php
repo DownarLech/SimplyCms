@@ -1,55 +1,74 @@
-<?php
+<?php declare(strict_types=1);
 
 
 namespace App\Models;
 
 
 use App\Models\Dto\ProductDataTransferObject;
+use App\Services\Container;
 use App\Services\QueryBuilder;
 use App\Services\SQLConnector;
-use PDO;
+use App\Services\ViewService;
 
 class ProductManager
 {
     private QueryBuilder $queryBuilder;
     private SQLConnector $sqlConnector;
+    private ProductRepository $productRepository;
+    private ViewService $viewService;
 
     /**
      * ProductMenager constructor.
-     * @param QueryBuilder $queryBuilder
-     * @param SQLConnector $sqlConnector
      */
     public function __construct(SQLConnector $sqlConnector)
     {
         $this->sqlConnector = $sqlConnector;
         $this->queryBuilder = new QueryBuilder($this->sqlConnector);
+        $this->productRepository = new ProductRepository($this->sqlConnector);
+        $this->viewService = new ViewService();
+    }
+
+    public function delete(ProductDataTransferObject $productDataTransferObject): void
+    {
+        $id = $productDataTransferObject->getId();
+
+        if (isset($id)) {
+            //$sql = "DELETE FROM Products  WHERE id = '" . $id . "';";
+            //$this->queryBuilder->prepareExecute($sql);
+
+            $this->queryBuilder->deleteWhereId('Products', $id);
+
+        } else {
+            throw new \Exception("Product is not in database");
+        }
     }
 
 
-    public function save(ProductDataTransferObject $productDataTransferObject): void
+    public function save(ProductDataTransferObject $productDataTransferObject): ProductDataTransferObject
     {
-        $values = [];
+        $productName = $productDataTransferObject->getName();
+        $description = $productDataTransferObject->getDescription();
 
         if ($productDataTransferObject->getId() !== 0) {
 
-            $values['id'] = $productDataTransferObject->getId();
-            $values['productName'] = $productDataTransferObject->getName();
-            $values['description'] = $productDataTransferObject->getDescription();
+            $id = $productDataTransferObject->getId();
 
-            $sql = "Update Products SET productName = '".$values['productName']."', description ='".$values['description']."' WHERE id = '".$values['id']."';";
+            //$sql = "UPDATE Products SET productName = '" .$productName. "', description ='" . $description. "' WHERE id = '" .$id. "';";
+            //$this->queryBuilder->prepareExecute($sql);
+
+            $this->queryBuilder->updateTableSetNameDescriptionWhereId('Products', $productName, $description, $id);
         } else {
-
-            $values['productName'] = $productDataTransferObject->getName();
-            $values['description'] = $productDataTransferObject->getDescription();
-
-            $sql = 'Insert into Products (productName, description) values (\'' . $values['productName'] . '\',\'' . $values['description'] . '\');';
+            $sql = 'INSERT INTO Products (productName, description) VALUES (\'' . $productName . '\',\'' . $description . '\');';
+            $id = $this->queryBuilder->prepareExecuteAndLastInsertId($sql);
         }
 
-        if ($this->queryBuilder->queryMake($sql) === TRUE) {
-            echo "New record created successfully";
-        } else {
-            echo "Error: " . $sql . "<br>";
-        }
+        //$id = $this->queryBuilder->execAndLastInsertId($sql);
+
+        $productDataTransferObjectNew = new ProductDataTransferObject();
+        $productDataTransferObjectNew->setId($id);
+        $productDataTransferObjectNew->setName($productDataTransferObject->getName());
+        $productDataTransferObjectNew->setDescription($productDataTransferObject->getDescription());
+
+        return $productDataTransferObjectNew;
     }
-
 }

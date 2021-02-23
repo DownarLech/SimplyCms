@@ -4,15 +4,23 @@
  * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-shop-homepage/blob/master/LICENSE)
  */
 
+html {
+    position: relative !important;
+    min-height: 100% !important;
+
+}
+
 body {
     padding-top: 56px;
 
     color: #1A318E !important;
     background-color: #fff;
+    box-sizing: border-box !important;
 
+    position: relative;
     min-height: 100vh;
     height: 100%;
-    position: relative;
+    padding-bottom: 70px !important;
 
 }
 
@@ -28,19 +36,14 @@ body {
     margin: 10px 0px 10px 0px !important;
 }
 
+
 footer {
+    height: 70px;
     position: absolute;
     bottom: 0;
     width: 100%;
 }
 
 
-/* footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-}
-*/
 
 

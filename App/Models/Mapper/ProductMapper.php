@@ -15,6 +15,7 @@ class ProductMapper
         $productDataTransferObject->setName($product['productName']);
         $productDataTransferObject->setDescription($product['description']);
 
+
         return $productDataTransferObject;
     }
 

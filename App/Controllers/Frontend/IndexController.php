@@ -4,16 +4,18 @@ declare(strict_types=1);
 
 namespace App\Controllers\Frontend;
 
+use App\Controllers\Controller;
+use App\Services\Container;
 use App\Services\ViewService;
 
-class IndexController
+class IndexController implements Controller
 {
     public const NAME = 'index';
     private ViewService $viewService;
 
-    public function __construct(ViewService $viewService)
+    public function __construct(Container $container)
     {
-        $this->viewService = $viewService;
+        $this->viewService = $container->get(ViewService::class);
     }
 
     public function action() : void {

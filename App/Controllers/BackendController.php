@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 
-interface BackendController
+interface BackendController extends Controller
 {
-    public function init():void ;
-    public function action():void ;
-
+    public function init(): void;
 }

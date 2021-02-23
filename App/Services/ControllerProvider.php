@@ -10,22 +10,12 @@ use App\Controllers\Backend\CategoryController;
 use App\Controllers\Frontend\ErrorController;
 use App\Controllers\Frontend\HomeController;
 use App\Controllers\Frontend\IndexController;
+use App\Controllers\Frontend\LabelProductController;
+use App\Controllers\Frontend\ListController;
 use App\Controllers\Frontend\NewProductController;
 
 class ControllerProvider
 {
-    public function getList() : array
-    {
-
-        return [
-            ProductController::class,
-            CategoryController::class,
-            HomeController::class,
-            IndexController::class,
-            NewProductController::class,
-            ErrorController::class
-        ];
-    }
 
     public function getFrontEndList(): array
     {
@@ -33,6 +23,8 @@ class ControllerProvider
             ErrorController::class,
             HomeController::class,
             IndexController::class,
+            LabelProductController::class,
+            ListController::class,
             NewProductController::class
         ];
     }

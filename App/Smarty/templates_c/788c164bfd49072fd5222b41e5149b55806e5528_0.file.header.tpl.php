@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.36, created on 2021-01-29 12:51:17
+/* Smarty version 3.1.36, created on 2021-02-17 12:07:41
   from '/home/developer/PhpstormProjects/SimplyCms/App/Smarty/templates/parts/header.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.36',
-  'unifunc' => 'content_6013f6b5615eb2_25167374',
+  'unifunc' => 'content_602cf8fd8948b3_32911907',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '788c164bfd49072fd5222b41e5149b55806e5528' => 
     array (
       0 => '/home/developer/PhpstormProjects/SimplyCms/App/Smarty/templates/parts/header.tpl',
-      1 => 1611921072,
+      1 => 1613560058,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:parts/navi.tpl' => 1,
   ),
 ),false)) {
-function content_6013f6b5615eb2_25167374 (Smarty_Internal_Template $_smarty_tpl) {
+function content_602cf8fd8948b3_32911907 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 

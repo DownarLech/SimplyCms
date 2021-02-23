@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="vendor/autoload.php" colors="true">
+    <testsuite name="SimplyCms Tests">
+        <directory>./tests/</directory>
+    </testsuite>
+        <php>
+            <env name="DB_HOST" value="127.0.0.1"/>
+            <env name="DB_PORT" value="3306"/>
+            <env name="DB_DATABASE" value="SimplyCmsDB_test"/>
+            <env name="DB_USERNAME" value="root"/>
+            <env name="DB_PASSWORD" value="12Mysql#"/>
+        </php>
+</phpunit>
