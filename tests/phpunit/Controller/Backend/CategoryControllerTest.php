@@ -26,9 +26,7 @@ class CategoryControllerTest extends TestCase
         $this->productHelper->deleteTemporaryProducts();
     }
 
-    /**
-     * @runInSeparateProcess
-     */
+
     public function testAction()
     {
         $listOfProducts = $this->productHelper->createTemporaryProducts();

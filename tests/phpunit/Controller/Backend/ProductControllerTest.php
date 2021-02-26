@@ -22,21 +22,19 @@ class ProductControllerTest extends TestCase
 
     protected function setUp(): void
     {
-        /*
+
         parent::setUp();
 
         $container = new Container();
         $containerProvider = new DependencyProvider();
         $containerProvider->providerDependency($container);
 
-        $this->viewService = new ViewService();
+        $this->viewService = $container->get(ViewService::class);
         $this->productController = new ProductController($container);
-
         $this->productRepository = new ProductRepository($container);
-
         $this->productHelper = new ProductHelperTest();
+
         $this->productHelper->createTemporaryProducts();
-        */
     }
 
     protected function tearDown(): void
@@ -91,33 +89,22 @@ class ProductControllerTest extends TestCase
         self::assertNull($this->productRepository->getProduct(1), 'NULL. The product was deleted.');
     }
 
-    /**
-     * @runInSeparateProcess
-     */
+
     public function testDeleteProduct(): void
     {
         $this->productController->deleteProduct(2);
 
         self::assertNull($this->productRepository->getProduct(2), 'NULL. The product was deleted.');
-
     }
 
-    /**
-     * @runInSeparateProcess
-     */
+
     public function testLoadView()
     {
 
-        $container = new Container();
-        $containerProvider = new DependencyProvider();
-        $containerProvider->providerDependency($container);
-
-        $viewService = $container->get(ViewService::class);
-        $product = new ProductController($container);
         $_GET['id'] = 1;
-        $product->loadView();
+        $this->productController->loadView();
 
-        $temp = $viewService->getParams();
+        $temp = $this->viewService->getParams();
         self::assertArrayHasKey('product', $temp);
 
         $one = $temp['product'];
@@ -125,27 +112,13 @@ class ProductControllerTest extends TestCase
         self::assertSame('john', $one->getName());
     }
 
-    /**
-     * @runInSeparateProcess
-     */
+
     public function testLoadViewError()
     {
-
-        $container = new Container();
-        $containerProvider = new DependencyProvider();
-        $containerProvider->providerDependency($container);
-
-        $viewService = new ViewService();
-        $container->set(ViewService::class, $viewService);
-
-        $container->get(ViewService::class);
-        $product = new ProductController($container);
-
-
         $_GET['id'] = 0;
-        $product->loadView();
+        $this->productController->loadView();
 
-        self::assertStringEndsWith('error.tpl', $viewService->getTemplate());
+        self::assertStringEndsWith('error.tpl', $this->viewService->getTemplate());
         //$this->expectException(Exception::class);
     }
 }

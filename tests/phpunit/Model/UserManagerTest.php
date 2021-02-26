@@ -3,8 +3,11 @@
 namespace Test;
 
 use App\Models\Dto\UserDataTransferObject;
+use App\Models\ProductManager;
 use App\Models\UserManager;
 use App\Models\UserRepository;
+use App\Services\Container;
+use App\Services\DependencyProvider;
 use App\Services\SQLConnector;
 use http\Client\Curl\User;
 use PHPUnit\Framework\TestCase;
@@ -14,10 +17,14 @@ class UserManagerTest extends TestCase
 {
 
     private UserHelperTest $userHelper;
+    private Container $container;
 
     protected function setUp(): void
     {
         parent::setUp();
+        $this->container = new Container();
+        $containerProvider = new DependencyProvider();
+        $containerProvider->providerDependency($this->container);
         $this->userHelper = new UserHelperTest();
     }
 
@@ -34,11 +41,11 @@ class UserManagerTest extends TestCase
         $userDataTransferObject->setPassword('e');
         $userDataTransferObject->setUserRole('Customer');
 
-        $productManager = new UserManager(new SQLConnector());
-        $actualValue = $productManager->save($userDataTransferObject);
+        $userManager = $this->container->get(UserManager::class);
+        $actualValue = $userManager->save($userDataTransferObject);
 
-        $productRepository = new UserRepository();
-        $valueFromDatabase = $productRepository->getUser($actualValue->getUserName(),$actualValue->getPassword());
+        $userRepository = $this->container->get(UserRepository::class);
+        $valueFromDatabase = $userRepository->getUser($actualValue->getUserName(), $actualValue->getPassword());
 
         self::assertSame('Filip', $valueFromDatabase->getUserName());
         self::assertSame('e', $valueFromDatabase->getPassword());
@@ -56,10 +63,10 @@ class UserManagerTest extends TestCase
         $userDataTransferObject->setPassword('d');
         $userDataTransferObject->setUserRole('Customer');
 
-        $userManager = new UserManager(new SQLConnector());
+        $userManager = $this->container->get(UserManager::class);
         $actualValue = $userManager->save($userDataTransferObject);
 
-        $userRepository = new UserRepository();
+        $userRepository = $this->container->get(UserRepository::class);
         $listFromDatabase = $userRepository->getUser($userDataTransferObject->getUserName(), $userDataTransferObject->getPassword());
 
 
@@ -71,10 +78,10 @@ class UserManagerTest extends TestCase
     public function testDelete(): void
     {
         $this->userHelper->createTemporaryUsers();
-        $userRepository = new UserRepository();
+        $userRepository = $this->container->get(UserRepository::class);
         $userDataTransferObject = $userRepository->getUserById(2);
 
-        $userManager = new UserManager(new SQLConnector());
+        $userManager = $this->container->get(UserManager::class);
         $userManager->delete($userDataTransferObject);
 
         self::assertNull($userRepository->getUserById(2));

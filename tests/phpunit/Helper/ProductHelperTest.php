@@ -39,12 +39,11 @@ class ProductHelperTest extends TestCase
     public function __construct()
     {
         parent::__construct();
-
         $container = new Container();
         $containerProvider = new DependencyProvider();
         $containerProvider->providerDependency($container);
 
-        $this->sqlConnector = $container->get(SQLConnector::class);
+        //$this->sqlConnector = $container->get(SQLConnector::class);
         $this->productManager = $container->get(ProductManager::class);
         $this->queryBuilder = $container->get(QueryBuilder::class);
     }

@@ -6,6 +6,8 @@ namespace Test;
 use App\Models\Dto\ProductDataTransferObject;
 use App\Models\ProductManager;
 use App\Models\ProductRepository;
+use App\Services\Container;
+use App\Services\DependencyProvider;
 use App\Services\SQLConnector;
 use PHPUnit\Framework\TestCase;
 use Test\phpunit\Helper\ProductHelperTest;
@@ -13,12 +15,15 @@ use Test\phpunit\Helper\ProductHelperTest;
 class ProductManagerTest extends TestCase
 {
     private ProductHelperTest $productHelper;
+    private Container $container;
 
     protected function setUp(): void
     {
         parent::setUp();
+        $this->container = new Container();
+        $containerProvider = new DependencyProvider();
+        $containerProvider->providerDependency($this->container);
         $this->productHelper = new ProductHelperTest();
-
     }
 
     protected function tearDown(): void
@@ -28,56 +33,60 @@ class ProductManagerTest extends TestCase
     }
 
 
-    public function testSaveInsert(): void
+    public function testSaveInsert(): int
     {
         $productDataTransferObject = new ProductDataTransferObject();
         $productDataTransferObject->setName('filip');
         $productDataTransferObject->setDescription('lorem filip');
 
-        $productManager = new ProductManager(new SQLConnector());
+        $productManager = $this->container->get(ProductManager::class);
         $actualValue = $productManager->save($productDataTransferObject);
 
-        $productRepository = new ProductRepository();
+        $productRepository = $this->container->get(ProductRepository::class);
         $valueFromDatabase = $productRepository->getProduct($actualValue->getId());
 
         self::assertSame('filip', $valueFromDatabase->getName());
         self::assertSame('lorem filip', $valueFromDatabase->getDescription());
-        $this->productHelper->deleteTemporaryProducts();
+
+        return $valueFromDatabase->getId();
     }
 
-    public function testSaveUpdate(): void
+    public function testSaveUpdate(): int
     {
-        $listOfProducts = $this->productHelper->createTemporaryProducts();
+        $id = $this->testSaveInsert();
 
         $productDataTransferObject = new ProductDataTransferObject();
-        $productDataTransferObject->setId($listOfProducts[2]->getId());
+        $productDataTransferObject->setId($id);
+        //$productDataTransferObject->setId($listOfProducts[2]->getId());
         $productDataTransferObject->setName('Unit Test');
         $productDataTransferObject->setDescription('Blbalbal');
 
-        $productManager = new ProductManager(new SQLConnector());
+        $productManager = $this->container->get(ProductManager::class);
         $actualValue = $productManager->save($productDataTransferObject);
 
-        $productRepository = new ProductRepository();
+        $productRepository = $this->container->get(ProductRepository::class);
         $listFromDatabase = $productRepository->getProduct($productDataTransferObject->getId());
 
-        //self::assertSame($actualValue->getId(), $listFromDatabase->getId());
+        self::assertSame($actualValue->getId(), $listFromDatabase->getId());
 
         self::assertSame($productDataTransferObject->getId(), $listFromDatabase->getId());
         self::assertSame($productDataTransferObject->getName(), $listFromDatabase->getName());
         self::assertSame($productDataTransferObject->getDescription(), $listFromDatabase->getDescription());
+
+        return $listFromDatabase->getId();
     }
 
     public function testDelete(): void
     {
-        $this->productHelper->createTemporaryProducts();
-        $productRepository = new ProductRepository();
-        $productDataTransferObject = $productRepository->getProduct(2);
+        $id = $this->testSaveUpdate();
 
-        $productManager = new ProductManager(new SQLConnector());
+        //$this->productHelper->createTemporaryProducts();
+        $productRepository = $this->container->get(ProductRepository::class);
+        $productDataTransferObject = $productRepository->getProduct($id);
+
+        $productManager = $this->container->get(ProductManager::class);
         $productManager->delete($productDataTransferObject);
 
-        self::assertNull($productRepository->getProduct(2));
+        self::assertNull($productRepository->getProduct($id));
     }
-
-
 }

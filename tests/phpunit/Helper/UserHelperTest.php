@@ -3,7 +3,10 @@
 namespace Test\phpunit\Helper;
 
 use App\Models\Dto\UserDataTransferObject;
+use App\Models\ProductManager;
 use App\Models\UserManager;
+use App\Services\Container;
+use App\Services\DependencyProvider;
 use App\Services\QueryBuilder;
 use App\Services\SQLConnector;
 use PHPUnit\Framework\TestCase;
@@ -35,9 +38,14 @@ class UserHelperTest extends TestCase
     public function __construct()
     {
         parent::__construct();
-        $this->sqlConnector = new SQLConnector();
-        $this->userManager = new UserManager($this->sqlConnector);
-        $this->queryBuilder = new QueryBuilder($this->sqlConnector);
+
+        $container = new Container();
+        $containerProvider = new DependencyProvider();
+        $containerProvider->providerDependency($container);
+
+        //$this->sqlConnector = $container->get(SQLConnector::class);
+        $this->userManager = $container->get(UserManager::class);
+        $this->queryBuilder = $container->get(QueryBuilder::class);
     }
 
     /**
@@ -63,7 +71,7 @@ class UserHelperTest extends TestCase
     public function deleteTemporaryUsers(): void
     {
         $sql = "TRUNCATE TABLE Users; ";
-        $this->queryBuilder->exec($sql);
+        $this->queryBuilder->prepareExecute($sql);
     }
 
 }

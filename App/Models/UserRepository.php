@@ -19,16 +19,26 @@ class UserRepository
     private SQLConnector $sqlConnector;
     private QueryBuilder $queryBuilder;
 
+
+    /*
     public function __construct(SQLConnector $sqlConnector)
     {
         $this->userMapper = new UserMapper();
         $this->sqlConnector = $sqlConnector;
         $this->queryBuilder = new QueryBuilder($this->sqlConnector);
     }
+    */
+
+    public function __construct(Container $container)
+    {
+        $this->sqlConnector = $container->get(SQLConnector::class);
+        $this->userMapper = $container->get(UserMapper::class);
+        $this->queryBuilder = $container->get(QueryBuilder::class);
+    }
+
 
     public function getUserList(): array
     {
-        //$arrayData = $this->queryBuilder->prepareExecuteFetchAll('Select * from Users');
         $arrayData = $this->queryBuilder->selectAll('Users');
 
         foreach ($arrayData as $user) {
@@ -39,9 +49,7 @@ class UserRepository
 
     public function getUser(string $username, string $password): ?UserDataTransferObject
     {
-        $arrayData = $this->queryBuilder->prepareExecuteFetchOne("SELECT * FROM  Users WHERE userName = '" . $username . "'  AND password = '" . $password . "';");
-
-        //$arrayData = $this->queryBuilder->selectOneWhereUserNameAndPassword('Users', $username, $password);
+        $arrayData = $this->queryBuilder->selectOneWhereUserNameAndPassword('Users', $username, $password);
 
         if (!$arrayData) {
             return null;
@@ -52,8 +60,8 @@ class UserRepository
 
     public function getUserById(int $id): ?UserDataTransferObject
     {
-        $arrayData = $this->queryBuilder->prepareExecuteFetchOne("SELECT * FROM  Users WHERE id = '" . $id . "'");
-        //$arrayData = $this->queryBuilder->selectOneWhereId('Users', $id);
+        $arrayData = $this->queryBuilder->selectOneWhereId('Users', $id);
+
         if (!$arrayData) {
             return null;
         }

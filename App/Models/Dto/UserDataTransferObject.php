@@ -88,7 +88,4 @@ class UserDataTransferObject
         $this->password = $password;
     }
 
-
-
-
 }

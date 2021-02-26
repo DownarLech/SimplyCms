@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Test;
 
 use App\Controllers\Frontend\ErrorController;
+use App\Services\Container;
+use App\Services\DependencyProvider;
 use App\Services\ViewService;
 use PHPUnit\Framework\TestCase;
 
@@ -22,8 +24,13 @@ class ErrorControllerTest extends TestCase
 
     public function testAction()
     {
-        $viewService = new ViewService();
-        $home = new ErrorController($viewService);
+        $container = new Container();
+        $containerProvider = new DependencyProvider();
+        $containerProvider->providerDependency($container);
+
+        $viewService = $container->get(ViewService::class);
+
+        $home = new ErrorController($container);
         $home->action();
 
         $path = dirname(__DIR__,4).'/App/Smarty/templates/error.tpl';

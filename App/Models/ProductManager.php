@@ -15,17 +15,12 @@ class ProductManager
     private QueryBuilder $queryBuilder;
     private SQLConnector $sqlConnector;
     private ProductRepository $productRepository;
-    private ViewService $viewService;
 
-    /**
-     * ProductMenager constructor.
-     */
-    public function __construct(SQLConnector $sqlConnector)
+    public function __construct(Container $container)
     {
-        $this->sqlConnector = $sqlConnector;
-        $this->queryBuilder = new QueryBuilder($this->sqlConnector);
-        $this->productRepository = new ProductRepository($this->sqlConnector);
-        $this->viewService = new ViewService();
+        $this->sqlConnector = $container->get(SQLConnector::class);
+        $this->queryBuilder = $container->get(QueryBuilder::class);
+        $this->productRepository = $container->get(ProductRepository::class);
     }
 
     public function delete(ProductDataTransferObject $productDataTransferObject): void
@@ -33,9 +28,6 @@ class ProductManager
         $id = $productDataTransferObject->getId();
 
         if (isset($id)) {
-            //$sql = "DELETE FROM Products  WHERE id = '" . $id . "';";
-            //$this->queryBuilder->prepareExecute($sql);
-
             $this->queryBuilder->deleteWhereId('Products', $id);
 
         } else {
@@ -52,17 +44,11 @@ class ProductManager
         if ($productDataTransferObject->getId() !== 0) {
 
             $id = $productDataTransferObject->getId();
-
-            //$sql = "UPDATE Products SET productName = '" .$productName. "', description ='" . $description. "' WHERE id = '" .$id. "';";
-            //$this->queryBuilder->prepareExecute($sql);
-
             $this->queryBuilder->updateTableSetNameDescriptionWhereId('Products', $productName, $description, $id);
-        } else {
-            $sql = 'INSERT INTO Products (productName, description) VALUES (\'' . $productName . '\',\'' . $description . '\');';
-            $id = $this->queryBuilder->prepareExecuteAndLastInsertId($sql);
-        }
 
-        //$id = $this->queryBuilder->execAndLastInsertId($sql);
+        } else {
+            $id = $this->queryBuilder->insertIntoTableNameDescription('Products', $productName, $description);
+        }
 
         $productDataTransferObjectNew = new ProductDataTransferObject();
         $productDataTransferObjectNew->setId($id);

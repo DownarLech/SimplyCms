@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.36, created on 2021-01-31 22:31:54
+/* Smarty version 3.1.36, created on 2021-02-25 12:48:42
   from '/home/developer/PhpstormProjects/SimplyCms/App/Smarty/templates/parts/navi.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.36',
-  'unifunc' => 'content_601721ca8eba32_26409115',
+  'unifunc' => 'content_60378e9a095287_78695380',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '72c6ae28267ae610581e4bd42cef12af68dde1de' => 
     array (
       0 => '/home/developer/PhpstormProjects/SimplyCms/App/Smarty/templates/parts/navi.tpl',
-      1 => 1612128708,
+      1 => 1614253716,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_601721ca8eba32_26409115 (Smarty_Internal_Template $_smarty_tpl) {
+function content_60378e9a095287_78695380 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
@@ -41,6 +41,9 @@ function content_601721ca8eba32_26409115 (Smarty_Internal_Template $_smarty_tpl)
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="http://localhost:8080/index.php?page=category&admin=true">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://localhost:8080/index.php?page=userList&admin=true">Users</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="http://localhost:8080/index.php?page=index">Contact</a>

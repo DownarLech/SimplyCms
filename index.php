@@ -11,6 +11,7 @@ require 'vendor/autoload.php';
 
 use App\Models\ProductRepository;
 use App\Services\DependencyProvider;
+use App\Services\SQLConnector;
 use App\Services\ViewService;
 use App\Services\Container;
 use App\Services\ControllerProvider;
@@ -40,26 +41,26 @@ if ($isAdmin) {
     $controllerList = $provider->getFrontEndList();
 }
 
-if(isset($page)){
-    foreach ($controllerList as $controller){
+if (isset($page)) {
+    foreach ($controllerList as $controller) {
 
-        if($page === $controller::NAME) {
+        if ($page === $controller::NAME) {
             $checked = true;
             $controller = new $controller($container);
-            if($isAdmin) {
+            if ($isAdmin) {
                 $controller->init();
             }
             $controller->action();
         }
     }
 }
-if(!$checked) {
+if (!$checked) {
     $controller = new ErrorController($container);
     $controller->action();
 }
 
 $viewServices = $container->get(ViewService::class);
-$viewServices->addTlpParam('name',$page);
+$viewServices->addTlpParam('name', $page);
 $viewServices->display();
 
 

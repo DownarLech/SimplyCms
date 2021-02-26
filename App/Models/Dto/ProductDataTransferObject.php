@@ -68,8 +68,4 @@ class ProductDataTransferObject
     {
         $this->description = $description;
     }
-
-
-
-
 }

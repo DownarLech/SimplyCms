@@ -13,7 +13,6 @@ class SQLConnector
 
     public function __construct()
     {
-
         try {
             $this->set($_ENV['DB_DATABASE'],$_ENV['DB_HOST'], $_ENV['DB_USERNAME'], $_ENV['DB_PASSWORD']);
 

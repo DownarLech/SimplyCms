@@ -18,14 +18,11 @@ class ProductRepository
     private QueryBuilder $queryBuilder;
 
 
-    /**
-     * ProductRepository constructor.
-     */
-    public function __construct(SQLConnector $sqlConnector)
+    public function __construct(Container $container)
     {
-        $this->sqlConnector = $sqlConnector;
-        $this->productMapper = new ProductMapper();
-        $this->queryBuilder = new QueryBuilder($this->sqlConnector);
+        $this->sqlConnector = $container->get(SQLConnector::class);
+        $this->productMapper = $container->get(ProductMapper::class);
+        $this->queryBuilder = $container->get(QueryBuilder::class);
     }
 
     /**
@@ -33,7 +30,6 @@ class ProductRepository
      */
     public function getProductList(): array
     {
-        //$arrayData = $this->queryBuilder->prepareExecuteFetchAll('SELECT * FROM Products');
         $arrayData = $this->queryBuilder->selectAll('Products');
 
         foreach ($arrayData as $product) {
@@ -45,7 +41,6 @@ class ProductRepository
 
     public function getProduct(int $id): ?ProductDataTransferObject
     {
-        //$arrayData = $this->queryBuilder->prepareExecuteFetchOne('SELECT * FROM Products WHERE id=' . $id);
         $arrayData = $this->queryBuilder->selectOneWhereId('Products', $id);
 
         if (!$arrayData) {

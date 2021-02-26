@@ -14,28 +14,20 @@ class UserManager
     private QueryBuilder $queryBuilder;
     private SQLConnector $sqlConnector;
     private UserRepository $userRepository;
-    private ViewService $viewService;
 
-    /**
-     * UserManager constructor.
-     * @param SQLConnector $sqlConnector
-     */
-    public function __construct(SQLConnector $sqlConnector)
+    public function __construct(Container $container)
     {
-        $this->sqlConnector = $sqlConnector;
-        $this->queryBuilder = new QueryBuilder($this->sqlConnector);
-        $this->userRepository = new UserRepository($this->sqlConnector);
-        $this->viewService = new ViewService();
+        $this->sqlConnector = $container->get(SQLConnector::class);
+        $this->queryBuilder = $container->get(QueryBuilder::class);
+        $this->userRepository = $container->get(UserRepository::class);
     }
+
 
     public function delete(UserDataTransferObject $userDataTransferObject): void
     {
         $id = $userDataTransferObject->getId();
 
         if (isset($id)) {
-            //$sql = "DELETE FROM Users  WHERE id = '" . $id . "';";
-            //$this->queryBuilder->prepareExecute($sql);
-
             $this->queryBuilder->deleteWhereId('Users', $id);
 
         } else {
@@ -48,30 +40,23 @@ class UserManager
     {
         $userName = $userDataTransferObject->getUserName();
         $password = $userDataTransferObject->getPassword();
-        $userRole =  $userDataTransferObject->getUserRole();
+        $userRole = $userDataTransferObject->getUserRole();
 
         if ($userDataTransferObject->getId() !== 0) {
 
             $id = $userDataTransferObject->getId();
-
-            //$sql = "UPDATE Users SET username = '" .$userName. "', password ='" . $password. "', userrole ='" . $userRole. "' WHERE id = '" .$id. "';";
-            //$this->queryBuilder->prepareExecute($sql);
-
             $this->queryBuilder->updateTableSetNamePasswordRoleWhereId('Users', $userName, $password, $userRole, $id);
-        } else {
-            $sql = 'INSERT INTO Users (userName, password, userrole) VALUES (\'' . $userName . '\',\'' . $password . '\',\'' . $userRole .'\');';
-            $id = $this->queryBuilder->prepareExecuteAndLastInsertId($sql);
-        }
 
-        //$id = $this->queryBuilder->execAndLastInsertId($sql);
+        } else {
+            $id = $this->queryBuilder->insertIntoTableNamePasswordRole('Users', $userName, $password, $userRole);
+        }
 
         $userDataTransferObjectNew = new UserDataTransferObject();
         $userDataTransferObjectNew->setId($id);
         $userDataTransferObjectNew->setUserName($userDataTransferObject->getUserName());
         $userDataTransferObjectNew->setPassword($userDataTransferObject->getPassword());
+        $userDataTransferObjectNew->setUserRole($userDataTransferObject->getUserRole());
 
         return $userDataTransferObjectNew;
     }
-
-
 }

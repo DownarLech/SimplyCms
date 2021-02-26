@@ -1,13 +1,16 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Services;
 
-
 class Container
 {
     private array $storeClass = [];
+
+
+    public function __construct()
+    {
+    }
 
     /**
      * @param array $storeClass
@@ -25,5 +28,4 @@ class Container
             echo 'There is no such a object';
         }
     }
-
 }
