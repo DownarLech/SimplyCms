@@ -1,21 +1,17 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Test;
 
-use App\Models\Dto\UserDataTransferObject;
-use App\Models\ProductManager;
-use App\Models\UserManager;
-use App\Models\UserRepository;
-use App\Services\Container;
-use App\Services\DependencyProvider;
-use App\Services\SQLConnector;
-use http\Client\Curl\User;
+use App\Component\User\Persistence\Models\UserManager;
+use App\Component\User\Persistence\Models\UserRepository;
+use App\Shared\Dto\UserDataTransferObject;
+use App\System\DI\Container;
+use App\System\DI\DependencyProvider;
 use PHPUnit\Framework\TestCase;
 use Test\phpunit\Helper\UserHelperTest;
 
 class UserManagerTest extends TestCase
 {
-
     private UserHelperTest $userHelper;
     private Container $container;
 

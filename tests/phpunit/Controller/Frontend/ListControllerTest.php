@@ -1,12 +1,11 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Test;
 
-use App\Controllers\Frontend\ListController;
-use App\Services\Container;
-use App\Services\DependencyProvider;
-use App\Services\ViewService;
+use App\Component\Product\Communication\Controllers\Frontend\ListController;
+use App\System\DI\Container;
+use App\System\DI\DependencyProvider;
+use App\System\Smarty\ViewService;
 use PHPUnit\Framework\TestCase;
 use Test\phpunit\Helper\ProductHelperTest;
 

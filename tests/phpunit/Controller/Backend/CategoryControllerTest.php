@@ -1,12 +1,12 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Test;
 
-use App\Controllers\Backend\CategoryController;
-use App\Services\Container;
-use App\Services\DependencyProvider;
-use App\Services\ViewService;
+use App\Component\Product\Communication\Controllers\Backend\CategoryController;
+use App\System\DI\Container;
+use App\System\DI\DependencyProvider;
+use App\System\Smarty\Redirect;
+use App\System\Smarty\ViewService;
 use PHPUnit\Framework\TestCase;
 use Test\phpunit\Helper\ProductHelperTest;
 
@@ -49,5 +49,43 @@ class CategoryControllerTest extends TestCase
         self::assertSame(2, $one->getId());
         self::assertSame('mark', $one->getName());
         self::assertSame('lorem mark', $one->getDescription());
+    }
+
+    public function testInit(): void
+    {
+        $container = new Container();
+        $containerProvider = new DependencyProvider();
+        $containerProvider->providerDependency($container);
+        $_SESSION['username'] = false;
+
+        $mockRedirect = $this->createMock(Redirect::class);
+        $mockRedirect->expects(self::once())
+            ->method('redirectToBackend')
+            ->with(self::equalTo('index.php?page=login&admin=true'));
+
+        $container->set(Redirect::class, $mockRedirect);
+
+        $category = new CategoryController($container);
+        $category->init();
+
+        self::assertTrue($_SESSION['username']);
+    }
+
+
+    public function testInitNegative(): void
+    {
+        $container = new Container();
+        $containerProvider = new DependencyProvider();
+        $containerProvider->providerDependency($container);
+
+        $mockRedirect = $this->createMock(Redirect::class);
+        $mockRedirect->expects(self::never())
+            ->method('redirectToBackend');
+
+        $container->set(Redirect::class, $mockRedirect);
+
+        $_SESSION['username'] = true;
+        $categoryController = new CategoryController($container);
+        $categoryController->init();
     }
 }

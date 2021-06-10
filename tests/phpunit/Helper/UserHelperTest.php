@@ -1,15 +1,15 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Test\phpunit\Helper;
 
-use App\Models\Dto\UserDataTransferObject;
-use App\Models\ProductManager;
-use App\Models\UserManager;
-use App\Services\Container;
-use App\Services\DependencyProvider;
-use App\Services\QueryBuilder;
-use App\Services\SQLConnector;
+use App\Component\User\Persistence\Models\UserManager;
+use App\Shared\Dto\UserDataTransferObject;
+use App\System\DI\Container;
+use App\System\DI\DependencyProvider;
+use Generated\User;
+use Generated\UserQuery;
 use PHPUnit\Framework\TestCase;
+use Propel\Runtime\Propel;
 
 class UserHelperTest extends TestCase
 {
@@ -31,9 +31,7 @@ class UserHelperTest extends TestCase
         ]
     ];
 
-    private SQLConnector $sqlConnector;
     private UserManager $userManager;
-    private QueryBuilder $queryBuilder;
 
     public function __construct()
     {
@@ -43,9 +41,7 @@ class UserHelperTest extends TestCase
         $containerProvider = new DependencyProvider();
         $containerProvider->providerDependency($container);
 
-        //$this->sqlConnector = $container->get(SQLConnector::class);
         $this->userManager = $container->get(UserManager::class);
-        $this->queryBuilder = $container->get(QueryBuilder::class);
     }
 
     /**
@@ -62,7 +58,6 @@ class UserHelperTest extends TestCase
             $userDataTransferObject->setPassword($user['password']);
             $userDataTransferObject->setUserRole($user['userrole']);
 
-
             $userDataTransferObjectList[] = $this->userManager->save($userDataTransferObject);
         }
         return $userDataTransferObjectList;
@@ -70,8 +65,15 @@ class UserHelperTest extends TestCase
 
     public function deleteTemporaryUsers(): void
     {
-        $sql = "TRUNCATE TABLE Users; ";
-        $this->queryBuilder->prepareExecute($sql);
+        $con = Propel::getConnection();
+        $sql = "TRUNCATE TABLE Users";
+/*
+        $sql = "TRUNCATE TABLE Users;
+        ALTER TABLE Users AUTO_INCREMENT = 0;
+        ";
+*/
+        $stmt = $con->prepare($sql);
+        $stmt->execute();
     }
 
 }

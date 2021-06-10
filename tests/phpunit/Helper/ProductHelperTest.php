@@ -1,15 +1,15 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Test\phpunit\Helper;
 
-use App\Models\Dto\ProductDataTransferObject;
-use App\Models\ProductManager;
-use App\Services\Container;
-use App\Services\DependencyProvider;
-use App\Services\QueryBuilder;
-use App\Services\SQLConnector;
+
+use App\Component\Product\Persistence\Models\ProductManager;
+use App\Shared\Dto\ProductDataTransferObject;
+use App\System\DI\Container;
+use App\System\DI\DependencyProvider;
+use Generated\ProductQuery;
 use PHPUnit\Framework\TestCase;
+use Propel\Runtime\Propel;
 
 class ProductHelperTest extends TestCase
 {
@@ -32,9 +32,7 @@ class ProductHelperTest extends TestCase
         ]
     ];
 
-    private SQLConnector $sqlConnector;
     private ProductManager $productManager;
-    private QueryBuilder $queryBuilder;
 
     public function __construct()
     {
@@ -43,9 +41,7 @@ class ProductHelperTest extends TestCase
         $containerProvider = new DependencyProvider();
         $containerProvider->providerDependency($container);
 
-        //$this->sqlConnector = $container->get(SQLConnector::class);
         $this->productManager = $container->get(ProductManager::class);
-        $this->queryBuilder = $container->get(QueryBuilder::class);
     }
 
     /**
@@ -66,10 +62,16 @@ class ProductHelperTest extends TestCase
         return $productDataTransferObjectList;
     }
 
+    /**
+     * @throws \Propel\Runtime\Exception\PropelException
+     */
     public function deleteTemporaryProducts(): void
     {
-        $sql = "TRUNCATE TABLE Products; ";
-        $this->queryBuilder->prepareExecute($sql);
+        $con = Propel::getConnection();
+        $sql = "TRUNCATE TABLE Products";
+        // ALTER TABLE Products AUTO_INCREMENT = 0;
+        $stmt = $con->prepare($sql);
+        $stmt->execute();
     }
 
 }

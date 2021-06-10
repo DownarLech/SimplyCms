@@ -1,68 +1,69 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Test;
 
-use App\Controllers\Backend\LoginController;
-use App\Models\Dto\ProductDataTransferObject;
-use App\Models\UserRepository;
-use App\Services\Container;
-use App\Services\DependencyProvider;
-use App\Services\Redirect;
-use App\Services\UserSession;
-use App\Services\ViewService;
+
+use App\Component\User\Communication\Controllers\Backend\LoginController;
+use App\System\DI\Container;
+use App\System\DI\DependencyProvider;
+use App\System\Smarty\Redirect;
 use PHPUnit\Framework\TestCase;
 
 class LoginControllerTest extends TestCase
 {
+    protected function setUp(): void
+    {
+    }
 
-/*
-        protected function setUp(): void
-        {
-
-            $container = new Container();
-            $containerProvider = new DependencyProvider();
-            $containerProvider->providerDependency($container);
-
-            $login = new LoginController($container);
-
-            $_SERVER['REQUEST_METHOD'] = 'POST';
-            $_POST['username'] = 'John';
-            $_POST['password'] = 'a';
-
-            $login->init();
-            $login->action();
-
-        }
-
-        protected function tearDown(): void
-        {
-            parent::tearDown();
-        }
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+    }
 
 
-        public function testLoginLogic(): void
-        {
-            $this->setUp();
-
-            self::assertNotEmpty($_POST['username']);
-            self::assertNotEmpty($_POST['password']);
-        }
-
-
-        public function testSession(): void
-        {
-            self::assertSame(session_status(), PHP_SESSION_ACTIVE);
-        }
-
-*/
-
-
-    public function testInit()
+    public function setUpIntegrationTest(): void
     {
         $container = new Container();
         $containerProvider = new DependencyProvider();
         $containerProvider->providerDependency($container);
+
+        $login = new LoginController($container);
+
+        $_SERVER['REQUEST_METHOD'] = 'POST';
+        $_POST['username'] = 'John';
+        $_POST['password'] = 'a';
+
+        $login->init();
+        $login->action();
+    }
+
+    /**
+     * @runInSeparateProcess
+     */
+    public function testLoginLogic(): void
+    {
+
+        $this->setUpIntegrationTest();
+
+        self::assertNotEmpty($_POST['username']);
+        self::assertNotEmpty($_POST['password']);
+    }
+
+/*
+    public function testSession(): void
+    {
+        $this->setUpIntegrationTest();
+        self::assertSame(PHP_SESSION_ACTIVE, session_status());
+    }
+*/
+
+
+    public function testInit(): void
+    {
+        $container = new Container();
+        $containerProvider = new DependencyProvider();
+        $containerProvider->providerDependency($container);
+        $_SESSION['username'] = false;
 
         $mockRedirect = $this->createMock(Redirect::class);
         $mockRedirect->expects(self::once())
@@ -78,7 +79,7 @@ class LoginControllerTest extends TestCase
     }
 
 
-    public function testInitNegativ()
+    public function testInitNegative(): void
     {
         $container = new Container();
         $containerProvider = new DependencyProvider();

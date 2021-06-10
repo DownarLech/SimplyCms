@@ -6,16 +6,22 @@
     </testsuite>
 
     <php>
+        <ini name="display_errors" value="On"/>
+        <ini name="error_reporting" value="-1"/>
+
         <env name="DB_HOST" value="127.0.0.1"/>
         <env name="DB_PORT" value="3306"/>
-        <env name="DB_DATABASE" value="SimplyCmsDB_test"/>
+        <env name="DB_DATABASE" value="SimplyCmsPropel_test"/>
         <env name="DB_USERNAME" value="root"/>
-        <env name="DB_PASSWORD" value="12Mysql#"/>
+        <env name="DB_PASSWORD" value="12Mysql%"/>
     </php>
 
     <coverage>
         <include>
             <directory suffix=".php">App/</directory>
         </include>
+        <exclude>
+            <directory>App/Smarty</directory>
+        </exclude>
     </coverage>
 </phpunit>

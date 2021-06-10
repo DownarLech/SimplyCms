@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 session_start();
 
@@ -9,13 +8,17 @@ error_reporting(E_ALL);
 
 require 'vendor/autoload.php';
 
-use App\Models\ProductRepository;
-use App\Services\DependencyProvider;
-use App\Services\SQLConnector;
-use App\Services\ViewService;
-use App\Services\Container;
-use App\Services\ControllerProvider;
-use App\Controllers\Frontend\ErrorController;
+// require_once __DIR__ . '/App/Propel/generated-conf/config.php';
+
+use App\Shared\Controller\Frontend\ErrorController;
+use App\System\DI\Container;
+use App\System\DI\ControllerProvider;
+use App\System\DI\DependencyProvider;
+use App\System\Smarty\ViewService;
+use Propel\Common\Config\ConfigurationManager;
+use Propel\Runtime\Connection\ConnectionManagerSingle;
+use Propel\Runtime\Propel;
+
 
 define('SMARTY_DIR', '/usr/local/lib/php/Smarty/libs/');
 require_once(SMARTY_DIR . 'Smarty.class.php');

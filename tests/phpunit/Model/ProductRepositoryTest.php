@@ -1,13 +1,11 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Test;
 
-use App\Models\Dto\ProductDataTransferObject;
-use App\Models\ProductRepository;
-use App\Services\Container;
-use App\Services\DependencyProvider;
+use App\Component\Product\Persistence\Models\ProductRepository;
+use App\Shared\Dto\ProductDataTransferObject;
+use App\System\DI\Container;
+use App\System\DI\DependencyProvider;
 use PHPUnit\Framework\TestCase;
 use Test\phpunit\Helper\ProductHelperTest;
 
@@ -40,16 +38,16 @@ class ProductRepositoryTest extends TestCase
         $productDataTransferList = $this->productRepository->getProductList();
 
         self::assertCount(4, $productDataTransferList);
-        self::assertSame(3,$this->productRepository->getProduct(3)->getId());
-        self::assertSame('mark', $this->productRepository->getProduct(2)->getName());
+        self::assertSame(3,$this->productRepository->getProductById(3)->getId());
+        self::assertSame('mark', $this->productRepository->getProductById(2)->getName());
 
-        self::assertSame('lorem george', $this->productRepository->getProduct(4)->getDescription());
+        self::assertSame('lorem george', $this->productRepository->getProductById(4)->getDescription());
     }
 
     public function testGetProduct(): void
     {
         $listOfProducts = $this->productHelper->createTemporaryProducts();
-        $productSingle = $this->productRepository->getProduct(3);
+        $productSingle = $this->productRepository->getProductById(3);
 
         self::assertInstanceOf(ProductDataTransferObject::class, $productSingle);
         self::assertSame(3, $productSingle->getId());
@@ -59,7 +57,7 @@ class ProductRepositoryTest extends TestCase
 
     public function testGetProductWhenProductIdNotFound (): void
     {
-        self::assertNull($this->productRepository->getProduct(0));
+        self::assertNull($this->productRepository->getProductById(0));
     }
 
 }

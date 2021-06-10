@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<database name="SimplyCmsPropel" defaultIdMethod="native" peckage="App\Propel" namespace="Generated">
+
+    <table name="Users" phpName="User" allowPkInsert="true">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="username" type="varchar" size="100" required="true"/>
+        <column name="password" type="varchar" size="32" required="true"/>
+        <column name="userrole" type="varchar" size="255" required="true"/>
+
+        <unique name="UniqueName">
+            <unique-column name="username"/>
+        </unique>
+    </table>
+
+    <table name="Products" phpName="Product" allowPkInsert="true">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="productName" type="varchar" size="255" required="true"/>
+        <column name="description" type="longvarchar"/>
+    </table>
+
+</database>
+

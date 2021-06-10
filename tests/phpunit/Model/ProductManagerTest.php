@@ -1,14 +1,12 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Test;
 
-use App\Models\Dto\ProductDataTransferObject;
-use App\Models\ProductManager;
-use App\Models\ProductRepository;
-use App\Services\Container;
-use App\Services\DependencyProvider;
-use App\Services\SQLConnector;
+use App\Component\Product\Persistence\Models\ProductManager;
+use App\Component\Product\Persistence\Models\ProductRepository;
+use App\Shared\Dto\ProductDataTransferObject;
+use App\System\DI\Container;
+use App\System\DI\DependencyProvider;
 use PHPUnit\Framework\TestCase;
 use Test\phpunit\Helper\ProductHelperTest;
 
@@ -43,7 +41,7 @@ class ProductManagerTest extends TestCase
         $actualValue = $productManager->save($productDataTransferObject);
 
         $productRepository = $this->container->get(ProductRepository::class);
-        $valueFromDatabase = $productRepository->getProduct($actualValue->getId());
+        $valueFromDatabase = $productRepository->getProductById($actualValue->getId());
 
         self::assertSame('filip', $valueFromDatabase->getName());
         self::assertSame('lorem filip', $valueFromDatabase->getDescription());
@@ -65,7 +63,7 @@ class ProductManagerTest extends TestCase
         $actualValue = $productManager->save($productDataTransferObject);
 
         $productRepository = $this->container->get(ProductRepository::class);
-        $listFromDatabase = $productRepository->getProduct($productDataTransferObject->getId());
+        $listFromDatabase = $productRepository->getProductById($productDataTransferObject->getId());
 
         self::assertSame($actualValue->getId(), $listFromDatabase->getId());
 
@@ -82,11 +80,11 @@ class ProductManagerTest extends TestCase
 
         //$this->productHelper->createTemporaryProducts();
         $productRepository = $this->container->get(ProductRepository::class);
-        $productDataTransferObject = $productRepository->getProduct($id);
+        $productDataTransferObject = $productRepository->getProductById($id);
 
         $productManager = $this->container->get(ProductManager::class);
         $productManager->delete($productDataTransferObject);
 
-        self::assertNull($productRepository->getProduct($id));
+        self::assertNull($productRepository->getProductById($id));
     }
 }

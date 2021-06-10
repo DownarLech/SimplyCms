@@ -5,9 +5,9 @@ services:
     image: mysql:5.7
     container_name: db
     environment:
-      MYSQL_ROOT_PASSWORD: 12Mysql#
+      MYSQL_ROOT_PASSWORD: 12Mysql%
       MYSQL_USER: root
-      MYSQL_PASSWORD: 12Mysql#
+      MYSQL_PASSWORD: 12Mysql%
     ports:
       - 3336:3306
 

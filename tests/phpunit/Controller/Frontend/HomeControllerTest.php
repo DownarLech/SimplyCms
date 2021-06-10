@@ -1,13 +1,12 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Test;
 
-use App\Controllers\Frontend\HomeController;
-use App\Services\Container;
-use App\Services\DependencyProvider;
-use App\Services\ViewService;
+
+use App\Shared\Controller\Frontend\HomeController;
+use App\System\DI\Container;
+use App\System\DI\DependencyProvider;
+use App\System\Smarty\ViewService;
 use PHPUnit\Framework\TestCase;
 
 class HomeControllerTest extends TestCase
