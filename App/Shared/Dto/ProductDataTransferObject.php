@@ -7,6 +7,7 @@ class ProductDataTransferObject
     private int $id;
     private string $name;
     private string $description;
+    private ?CategoryDataTransferObject $category;
 
     /**
      * ProductDataTransferObject constructor.
@@ -16,6 +17,23 @@ class ProductDataTransferObject
         $this->id = 0;
         $this->name = ' ';
         $this->description = ' ';
+        $this->category = null;
+    }
+
+    /**
+     * @return CategoryDataTransferObject|null
+     */
+    public function getCategory(): ?CategoryDataTransferObject
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param CategoryDataTransferObject|null $category
+     */
+    public function setCategory(?CategoryDataTransferObject $category): void
+    {
+        $this->category = $category;
     }
 
     /**

@@ -9,9 +9,10 @@ class CsvMapper implements CsvMapperInterface
     public function mapFromIteratorToCsvDto(array $record): CsvDataTransferObject
     {
         $csvDataTransferObject = new CsvDataTransferObject();
-        $csvDataTransferObject->setId((int)$record['id']);
-        $csvDataTransferObject->setName($record['name']);
-        $csvDataTransferObject->setDescription($record['description']);
+        $csvDataTransferObject->setId((int)$record['abstract_sku']);
+        $csvDataTransferObject->setName($record['name.en_US']);
+        $csvDataTransferObject->setDescription($record['description.en_US']);
+        $csvDataTransferObject->setCategoryName($record['category_key']);
 
         return $csvDataTransferObject;
     }

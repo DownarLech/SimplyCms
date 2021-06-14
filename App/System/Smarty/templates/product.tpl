@@ -1,6 +1,5 @@
 {include file="parts/header.tpl" title="Product"}
 
-
 <div class="container">
     <div class="row h-100 justify-content-center align-items-center row-my-nr1">
         <div class="list-group ">

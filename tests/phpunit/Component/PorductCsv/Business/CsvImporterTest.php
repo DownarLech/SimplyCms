@@ -6,7 +6,7 @@ use App\Component\Product\Business\ProductBusinessFacade;
 use App\Component\Product\Business\ProductBusinessFacadeInterface;
 use App\Component\Product\Persistence\Mapper\ProductMapper;
 use App\Component\Product\Persistence\Mapper\ProductMapperInterface;
-use App\Component\ProductCsv\Business\CsvImporter;
+use App\Component\ProductCsv\Business\CsvImporterAlt;
 use App\Shared\Dto\ProductDataTransferObject;
 use App\System\DI\Container;
 use App\System\DI\DependencyProvider;
@@ -17,7 +17,7 @@ use Propel\Runtime\Propel;
 class CsvImporterTest extends TestCase
 {
 
-    private CsvImporter $csvImporter;
+    private CsvImporterAlt $csvImporter;
     private ProductMapperInterface $productMapper;
     private ProductBusinessFacadeInterface $productBusinessFacade;
 
@@ -28,8 +28,8 @@ class CsvImporterTest extends TestCase
         $containerProvider = new DependencyProvider();
         $containerProvider->providerDependency($container);
 
-        $this->csvImporter = new CsvImporter($container);
-        $this->productMapper = new ProductMapper();
+        $this->csvImporter = new CsvImporterAlt($container);
+        $this->productMapper = new ProductMapper($container);
         $this->productBusinessFacade = new ProductBusinessFacade($container);
     }
 
@@ -46,14 +46,12 @@ class CsvImporterTest extends TestCase
     public function testLoadCsvData(): void
     {
         $path = __DIR__ . '/../../../../../readyData.csv';
-        $this->csvImporter->loadCsvData($path);
     }
 
     public function testSaveAsCsvDto(): void
     {
         $path = __DIR__ . '/../../../CsvFile/csvDataInsert.csv';
-        $records = $this->csvImporter->loadCsvData($path);
-        $csvDtoList = $this->csvImporter->saveAsCsvDto($records);
+        $csvDtoList = $this->csvImporter->saveAsCsvDto($path);
 
         $productDtoList = [];
         foreach ($csvDtoList as $csvDto) {
@@ -71,6 +69,11 @@ class CsvImporterTest extends TestCase
 
         self::assertCount(5, $productListFromDb);
 
+        self::assertSame(4, $this->productBusinessFacade->getProductById(4)->getId());
+        self::assertSame('Canon IXUS 285', $this->productBusinessFacade->getProductById(8)->getName());
+        self::assertSame('The way you like it. Whatever your lifestyle SmartWatch 3 SWR50 can be made to suit it.',
+            $this->productBusinessFacade->getProductById(91)->getDescription());
+
         foreach ($csvDtoList as $csvDto)
         {
             $productFromDb = $this->productBusinessFacade->getProductById($csvDto->getId());
@@ -83,12 +86,10 @@ class CsvImporterTest extends TestCase
     public function testUpdateSaveAsCsvDto(): void
     {
         $path = __DIR__ . '/../../../CsvFile/csvDataInsert.csv';
-        $records = $this->csvImporter->loadCsvData($path);
-        $csvDtoList = $this->csvImporter->saveAsCsvDto($records);
+        $this->csvImporter->saveAsCsvDto($path);
 
         $path = __DIR__ . '/../../../CsvFile/csvDataUpdate.csv';
-        $records = $this->csvImporter->loadCsvData($path);
-        $csvDtoList = $this->csvImporter->saveAsCsvDto($records);
+        $csvDtoList = $this->csvImporter->saveAsCsvDto($path);
 
         $productDtoList = [];
         foreach ($csvDtoList as $csvDto) {
@@ -102,7 +103,7 @@ class CsvImporterTest extends TestCase
 
         $productListFromDb = $this->productBusinessFacade->getProductList();
 
-        self::assertCount(5, $productListFromDb);
+        self::assertCount(6, $productListFromDb);
 
         foreach ($csvDtoList as $csvDto)
         {

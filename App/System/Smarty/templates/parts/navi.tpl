@@ -17,10 +17,13 @@
                     <a class="nav-link" href="http://localhost:8080/index.php?page=login&admin=true">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost:8080/index.php?page=category&admin=true">Products</a>
+                    <a class="nav-link" href="http://localhost:8080/index.php?page=productList&admin=true">Products</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="http://localhost:8080/index.php?page=userList&admin=true">Users</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://localhost:8080/index.php?page=categoryList&admin=true">Categorys</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="http://localhost:8080/index.php?page=index">Contact</a>

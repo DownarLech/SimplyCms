@@ -17,6 +17,21 @@
         <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
         <column name="productName" type="varchar" size="255" required="true"/>
         <column name="description" type="longvarchar"/>
+        <column name="category_id" type="integer"/>
+
+        <!-- Model-only relationship -->
+        <foreign-key foreignTable="Category" onDelete="CASCADE" skipSql="true">
+            <reference local="category_id" foreign="id"/>
+        </foreign-key>
+    </table>
+
+    <table name="Category" phpName="Category" allowPkInsert="true">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="name" type="varchar" size="255" required="true"/>
+
+        <unique name="UniqueName">
+            <unique-column name="name"/>
+        </unique>
     </table>
 
 </database>

@@ -1,4 +1,4 @@
-{include file="parts/header.tpl" title="Category page"}
+{include file="parts/header.tpl" title="Product List"}
 
 
 <div class="container">

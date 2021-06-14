@@ -1,6 +1,6 @@
 <?php
 /* Smarty version 3.1.36, created on 2021-05-28 14:06:53
-  from '/home/developer/PhpstormProjects/SimplyCms/App/Smarty/templates/categoryPage.tpl' */
+  from '/home/developer/PhpstormProjects/SimplyCms/App/Smarty/templates/productList.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
@@ -11,7 +11,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
     '16b66a8bb3cc033d23a453c46e205dd4f7c06396' => 
     array (
-      0 => '/home/developer/PhpstormProjects/SimplyCms/App/Smarty/templates/categoryPage.tpl',
+      0 => '/home/developer/PhpstormProjects/SimplyCms/App/Smarty/templates/productList.tpl',
       1 => 1613390307,
       2 => 'file',
     ),

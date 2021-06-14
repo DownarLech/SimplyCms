@@ -51,13 +51,13 @@ class ProductController implements BackendController
                         $description = (string)trim($_POST['description']);
                         $this->saveProduct($productId, $productName, $description);
 
-                        $this->redirect->redirectToBackend('index.php?page=category&admin=true');
+                        $this->redirect->redirectToBackend('index.php?page=productLis&admin=true');
                     }
                     break;
                 case (isset($_POST['delete'])):
                     $productId = (int)$_POST['delete'];
                     $this->deleteProduct($productId);
-                    $this->redirect->redirectToBackend('index.php?page=category&admin=true');
+                    $this->redirect->redirectToBackend('index.php?page=productList&admin=true');
                     break;
             }
         }

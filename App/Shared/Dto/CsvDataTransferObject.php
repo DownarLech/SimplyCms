@@ -7,6 +7,8 @@ class CsvDataTransferObject
     private int $id;
     private string $name;
     private string $description;
+    private string $categoryName;
+
 
     /**
      * CsvDataTransferObject constructor.
@@ -16,7 +18,25 @@ class CsvDataTransferObject
         $this->id = 0;
         $this->name = '';
         $this->description = '';
+        $this->categoryName = '';
     }
+
+    /**
+     * @return string
+     */
+    public function getCategoryName(): string
+    {
+        return $this->categoryName;
+    }
+
+    /**
+     * @param string $categoryName
+     */
+    public function setCategoryName(string $categoryName): void
+    {
+        $this->categoryName = $categoryName;
+    }
+
 
     /**
      * @return int
@@ -65,8 +85,5 @@ class CsvDataTransferObject
     {
         $this->description = $description;
     }
-
-
-
 
 }

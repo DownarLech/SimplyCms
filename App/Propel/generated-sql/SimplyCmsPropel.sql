@@ -30,7 +30,23 @@ CREATE TABLE `Products`
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `productName` VARCHAR(255) NOT NULL,
     `description` TEXT,
-    PRIMARY KEY (`id`)
+    `category_id` INTEGER,
+    PRIMARY KEY (`id`),
+    INDEX `Products_fi_904832` (`category_id`)
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- Category
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `Category`;
+
+CREATE TABLE `Category`
+(
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(255) NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE INDEX `UniqueName` (`name`)
 ) ENGINE=InnoDB;
 
 # This restores the fkey checks, after having unset them earlier

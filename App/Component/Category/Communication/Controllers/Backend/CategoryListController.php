@@ -1,26 +1,26 @@
 <?php declare(strict_types=1);
 
-namespace App\Component\Product\Communication\Controllers\Backend;
+namespace App\Component\Category\Communication\Controllers\Backend;
 
-use App\Component\Product\Business\ProductBusinessFacade;
-use App\Component\Product\Business\ProductBusinessFacadeInterface;
+use App\Component\Category\Business\CategoryBusinessFacade;
+use App\Component\Category\Business\CategoryBusinessFacadeInterface;
 use App\Shared\Controller\BackendController;
 use App\System\DI\Container;
 use App\System\Session\UserSession;
 use App\System\Smarty\Redirect;
 use App\System\Smarty\ViewService;
 
-class CategoryController implements BackendController
+class CategoryListController implements BackendController
 {
-    public const NAME= 'category';
-    private ProductBusinessFacadeInterface $productBusinessFacade;
+    public const NAME= 'categoryList';
+    private CategoryBusinessFacadeInterface $categoryBusinessFacade;
     private ViewService $viewService;
     private UserSession $userSession;
     private Redirect $redirect;
 
     public function __construct(Container $container)
     {
-        $this->productBusinessFacade = $container->get(ProductBusinessFacade::class);
+        $this->categoryBusinessFacade = $container->get(CategoryBusinessFacade::class);
         $this->viewService = $container->get(ViewService::class);
         $this->userSession = $container->get(UserSession::class);
         $this->redirect = $container->get(Redirect::class);
@@ -34,7 +34,9 @@ class CategoryController implements BackendController
     }
 
     public function action() : void {
-        $this->viewService->setTemplate('categoryPage.tpl');
-        $this->viewService->addTlpParam('productList', $this->productBusinessFacade->getProductList());
+        $this->viewService->setTemplate('categoryList.tpl');
+        $this->viewService->addTlpParam('categoryList', $this->categoryBusinessFacade->getCategoryList());
     }
+
+
 }

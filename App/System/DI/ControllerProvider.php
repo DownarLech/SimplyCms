@@ -2,7 +2,9 @@
 
 namespace App\System\DI;
 
-use App\Component\Product\Communication\Controllers\Backend\CategoryController;
+use App\Component\Category\Communication\Controllers\Backend\CategoryController;
+use App\Component\Category\Communication\Controllers\Backend\CategoryListController;
+use App\Component\Product\Communication\Controllers\Backend\ProductListController;
 use App\Component\Product\Communication\Controllers\Backend\ProductController;
 use App\Component\Product\Communication\Controllers\Frontend\LabelProductController;
 use App\Component\Product\Communication\Controllers\Frontend\ListController;
@@ -12,6 +14,7 @@ use App\Component\User\Communication\Controllers\Backend\UsersListController;
 use App\Shared\Controller\Frontend\ErrorController;
 use App\Shared\Controller\Frontend\HomeController;
 use App\Shared\Controller\Frontend\IndexController;
+
 
 class ControllerProvider
 {
@@ -29,11 +32,13 @@ class ControllerProvider
     public function getBackEndList(): array
     {
         return [
-            CategoryController::class,
+            ProductListController::class,
             LoginController::class,
             ProductController::class,
             UserController::class,
-            UsersListController::class
+            UsersListController::class,
+            CategoryController::class,
+            CategoryListController::class
         ];
     }
 }

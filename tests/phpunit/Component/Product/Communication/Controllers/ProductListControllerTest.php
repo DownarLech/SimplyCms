@@ -2,7 +2,7 @@
 
 namespace Test;
 
-use App\Component\Product\Communication\Controllers\Backend\CategoryController;
+use App\Component\Product\Communication\Controllers\Backend\ProductListController;
 use App\System\DI\Container;
 use App\System\DI\DependencyProvider;
 use App\System\Smarty\Redirect;
@@ -10,7 +10,7 @@ use App\System\Smarty\ViewService;
 use PHPUnit\Framework\TestCase;
 use Test\phpunit\Helper\ProductHelperTest;
 
-class CategoryControllerTest extends TestCase
+class ProductListControllerTest extends TestCase
 {
     private ProductHelperTest $productHelper;
 
@@ -37,7 +37,7 @@ class CategoryControllerTest extends TestCase
 
         $viewService = $container->get(ViewService::class);
 
-        $category = new CategoryController($container);
+        $category = new ProductListController($container);
 
         $category->action();
         //dump($viewService->getParams());
@@ -65,7 +65,7 @@ class CategoryControllerTest extends TestCase
 
         $container->set(Redirect::class, $mockRedirect);
 
-        $category = new CategoryController($container);
+        $category = new ProductListController($container);
         $category->init();
 
         self::assertTrue($_SESSION['username']);
@@ -85,7 +85,7 @@ class CategoryControllerTest extends TestCase
         $container->set(Redirect::class, $mockRedirect);
 
         $_SESSION['username'] = true;
-        $categoryController = new CategoryController($container);
+        $categoryController = new ProductListController($container);
         $categoryController->init();
     }
 }
