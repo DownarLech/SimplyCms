@@ -7,7 +7,6 @@ use App\Component\Category\Persistence\Mapper\CategoryMapper;
 use App\Component\Category\Persistence\Mapper\CategoryMapperInterface;
 use App\Shared\Dto\CategoryDataTransferObject;
 use App\System\DI\Container;
-use Generated\Category;
 use Generated\CategoryQuery;
 
 class CategoryRepository implements CategoryRepositoryInterface
@@ -43,6 +42,7 @@ class CategoryRepository implements CategoryRepositoryInterface
 
     public function getCategoryByName(string $name): ?CategoryDataTransferObject
     {
+        //tutaj jest problem nie znajduje w BD category bo ich tam nie ma
         $data = CategoryQuery::create()
             ->filterByName($name)
             ->findOne();

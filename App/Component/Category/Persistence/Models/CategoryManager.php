@@ -38,7 +38,7 @@ class CategoryManager implements CategoryManagerInterface
                 $category->setName($categoryName)
                     ->save();
             } else {
-                $category = new Category();
+                $category = new Category(); //here
                 $category->setId($categoryId)
                     ->setName($categoryName)
                     ->save();

@@ -6,7 +6,7 @@ use App\Component\Category\Business\CategoryBusinessFacade;
 use App\Component\Category\Business\CategoryBusinessFacadeInterface;
 use App\Component\Category\Persistence\Mapper\CategoryMapper;
 use App\Component\Category\Persistence\Mapper\CategoryMapperInterface;
-use App\Component\Category\Persistence\Models\CategoryManagerInterface;
+use App\Shared\Dto\CategoryDataTransferObject;
 use App\Shared\Dto\CsvDataTransferObject;
 use App\Shared\Dto\ProductDataTransferObject;
 use App\System\DI\Container;
@@ -57,6 +57,11 @@ class ProductMapper implements ProductMapperInterface
         $productDataTransferObject->setDescription($csvDto->getDescription());
 
         $category = $this->categoryBusinessFacade->getCategoryByName($csvDto->getCategoryName());
+        if(!$category) {
+            $category = new CategoryDataTransferObject();
+            $category->setName($csvDto->getCategoryName());
+            $this->categoryBusinessFacade->save($category);
+        }
         $productDataTransferObject->setCategory($category);
 
         return $productDataTransferObject;

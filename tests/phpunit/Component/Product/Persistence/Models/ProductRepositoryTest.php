@@ -31,6 +31,9 @@ class ProductRepositoryTest extends TestCase
         $this->categoryHelper->createTemporaryCategories();
     }
 
+    /**
+     * @throws \Propel\Runtime\Exception\PropelException
+     */
     protected function tearDown(): void
     {
         $this->categoryHelper->deleteTemporaryCategories();

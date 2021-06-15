@@ -23,7 +23,7 @@
                     <a class="nav-link" href="http://localhost:8080/index.php?page=userList&admin=true">Users</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost:8080/index.php?page=categoryList&admin=true">Categorys</a>
+                    <a class="nav-link" href="http://localhost:8080/index.php?page=categoryList&admin=true">Categories</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="http://localhost:8080/index.php?page=index">Contact</a>

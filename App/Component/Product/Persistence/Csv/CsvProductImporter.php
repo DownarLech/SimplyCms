@@ -2,8 +2,8 @@
 
 namespace App\Component\Product\Persistence\Csv;
 
-use App\Component\ProductCsv\Persistence\Mapper\CsvMapper;
-use App\Component\ProductCsv\Persistence\Mapper\CsvMapperInterface;
+use App\Component\Product\Persistence\Csv\Mapper\CsvMapper;
+use App\Component\Product\Persistence\Csv\Mapper\CsvMapperInterface;
 use App\Shared\Csv\CsvImporter;
 use App\Shared\Dto\CsvDataTransferObject;
 use App\System\DI\Container;
@@ -24,13 +24,13 @@ class CsvProductImporter
      * @return CsvDataTransferObject[]
      * @throws \League\Csv\Exception
      */
-    public function saveAsCsvDto(string $path): array
+    public function loadDataAsCsvDto(string $path): array
     {
         $csvDtoList = [];
         $products = $this->csvImporter->loadCsvData($path);
 
         foreach ($products as $product) {
-            $csvProductDtoList[] = $this->csvMapper->mapFromIteratorToCsvDto($product);
+            $csvDtoList[] = $this->csvMapper->mapFromIteratorToCsvDto($product);
         }
         return $csvDtoList;
     }

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Component\ProductCsv\Persistence\Mapper;
+namespace App\Component\Product\Persistence\Csv\Mapper;
 
 use App\Shared\Dto\CsvDataTransferObject;
 

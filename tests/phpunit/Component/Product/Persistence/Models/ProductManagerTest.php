@@ -26,6 +26,7 @@ class ProductManagerTest extends TestCase
         $this->container = new Container();
         $containerProvider = new DependencyProvider();
         $containerProvider->providerDependency($this->container);
+
         $this->productHelper = new ProductHelperTest();
         $this->categoryHelper = new CategoryHelperTest();
 
