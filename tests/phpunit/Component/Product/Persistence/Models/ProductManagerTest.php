@@ -113,4 +113,22 @@ class ProductManagerTest extends TestCase
 
         self::assertNull($productRepository->getProductById($id));
     }
+
+    public function testSaveWithOutCategory(): void
+    {
+        $productDataTransferObject = new ProductDataTransferObject();
+        $productDataTransferObject->setName('filip');
+        $productDataTransferObject->setDescription('lorem filip');
+
+        $productManager = $this->container->get(ProductManager::class);
+        $actualValue = $productManager->save($productDataTransferObject);
+
+        $productRepository = $this->container->get(ProductRepository::class);
+        $valueFromDatabase = $productRepository->getProductById($actualValue->getId());
+
+        self::assertSame('filip', $valueFromDatabase->getName());
+        self::assertSame('lorem filip', $valueFromDatabase->getDescription());
+        self::assertNull($valueFromDatabase->getCategory());
+
+    }
 }

@@ -41,7 +41,7 @@ class DependencyProvider
         $container->set(ProductMapper::class, new ProductMapper($container));
 
         $container->set(ProductRepository::class, new ProductRepository($container));
-        $container->set(ProductManager::class, new ProductManager());
+        $container->set(ProductManager::class, new ProductManager($container));
 
         $container->set(UserRepository::class, new UserRepository($container));
         $container->set(UserManager::class, new UserManager());

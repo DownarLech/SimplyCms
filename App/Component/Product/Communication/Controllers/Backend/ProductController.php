@@ -49,7 +49,8 @@ class ProductController implements BackendController
                         }
                         $productName = (string)trim($_POST['productname']);
                         $description = (string)trim($_POST['description']);
-                        $this->saveProduct($productId, $productName, $description);
+                        $categoryName = (string)trim($_POST['categoryName']);
+                        $this->saveProduct($productId, $productName, $description, $categoryName);
 
                         $this->redirect->redirectToBackend('index.php?page=productLis&admin=true');
                     }

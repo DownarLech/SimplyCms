@@ -2,6 +2,10 @@
 
 namespace App\Component\Product\Persistence\Models;
 
+use App\Component\Category\Business\CategoryBusinessFacade;
+use App\Component\Category\Business\CategoryBusinessFacadeInterface;
+use App\Shared\Dto\CategoryDataTransferObject;
+use App\System\DI\Container;
 use Generated\Product;
 use Generated\ProductQuery;
 use App\Shared\Dto\ProductDataTransferObject;
@@ -10,6 +14,13 @@ use Propel\Runtime\Exception\PropelException;
 
 class ProductManager implements ProductManagerInterface
 {
+
+    private CategoryBusinessFacadeInterface $categoryBusinessFacade;
+
+    public function __construct(Container $container)
+    {
+        $this->categoryBusinessFacade = $container->get(CategoryBusinessFacade::class);
+    }
 
     public function delete(ProductDataTransferObject $productDataTransferObject): void
     {
@@ -33,9 +44,13 @@ class ProductManager implements ProductManagerInterface
         $description = $productDataTransferObject->getDescription();
 
         //What with null here??
-        $category = $productDataTransferObject->getCategory();
-        $categoryId = $category->getId();
-       // $categoryId = $productDataTransferObject->getCategory()->getId();
+        $categoryId = 0;
+
+        $categoryDto = $productDataTransferObject->getCategory();
+        if (isset($categoryDto)) {
+            $category = $this->categoryBusinessFacade->save($categoryDto);
+            $categoryId = $category->getId();
+        }
 
         if ($productDataTransferObject->getId() !== 0) {
             $id = $productDataTransferObject->getId();
@@ -54,7 +69,6 @@ class ProductManager implements ProductManagerInterface
                     ->setDescription($description)
                     ->setCategoryId($categoryId)
                     ->save();
-
             }
         } else {
             $product = new Product();

@@ -10,6 +10,8 @@
                     <small class="p-2">Product id:{$product->getId()}</small>
                 </div>
                 <p class="mb-1 p-2">{$product->getDescription()}</p>
+
+                <p class="mb-1 p-2">{$product->getCategory()->getName()}</p>
             </a>
             <form class="form-example margin-bigger" action="" method="post" id="update_form">
                 <div class="text-center">
@@ -35,6 +37,10 @@
                 <div class="form-group margin-bigger">
                     <label for="description">Description:</label>
                     <input type="text" class="form-control password" placeholder="description..." name="description">
+                </div>
+                <div class="form-group margin-bigger">
+                    <label for="categoryName">Category:</label>
+                    <input type="text" class="form-control password" placeholder="category..." name="categoryName">
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary btn-customized margin-bigger" name="save"

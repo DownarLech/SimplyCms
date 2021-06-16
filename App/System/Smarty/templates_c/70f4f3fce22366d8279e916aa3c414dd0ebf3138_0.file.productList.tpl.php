@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.36, created on 2021-06-11 11:42:34
+/* Smarty version 3.1.36, created on 2021-06-15 13:48:54
   from '/home/developer/PhpstormProjects/SimplyCms/App/System/Smarty/templates/productList.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.36',
-  'unifunc' => 'content_60c3300a7d2112_36453393',
+  'unifunc' => 'content_60c893a6092f78_69818782',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '70f4f3fce22366d8279e916aa3c414dd0ebf3138' => 
     array (
       0 => '/home/developer/PhpstormProjects/SimplyCms/App/System/Smarty/templates/productList.tpl',
-      1 => 1623404064,
+      1 => 1623757732,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:parts/footer.tpl' => 1,
   ),
 ),false)) {
-function content_60c3300a7d2112_36453393 (Smarty_Internal_Template $_smarty_tpl) {
+function content_60c893a6092f78_69818782 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender("file:parts/header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array('title'=>"Product List"), 0, false);
 ?>
 
@@ -48,6 +48,9 @@ $_smarty_tpl->tpl_vars['product']->do_else = false;
                     </div>
                     <p class="mb-1"><?php echo $_smarty_tpl->tpl_vars['product']->value->getDescription();?>
 </p>
+
+                    <p class="mb-1 p-2"><?php echo $_smarty_tpl->tpl_vars['product']->value->getCategory()->getName();?>
+</p>
                 </a>
             <?php
 }
@@ -68,6 +71,10 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 <div class="form-group margin-bigger">
                     <label for="description">Description:</label>
                     <input type="text" class="form-control password" placeholder="description..." name="description">
+                </div>
+                <div class="form-group margin-bigger">
+                    <label for="categoryName">Category:</label>
+                    <input type="text" class="form-control password" placeholder="category..." name="categoryName">
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary btn-customized margin-bigger" name="save"

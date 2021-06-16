@@ -6,7 +6,6 @@ use App\Component\Product\Persistence\Mapper\ProductMapper;
 use App\Component\Product\Persistence\Mapper\ProductMapperInterface;
 use App\Shared\Dto\ProductDataTransferObject;
 use App\System\DI\Container;
-use Generated\Product;
 use Generated\ProductQuery;
 
 class ProductRepository implements ProductRepositoryInterface
