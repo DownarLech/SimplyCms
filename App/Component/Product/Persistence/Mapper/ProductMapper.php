@@ -60,8 +60,9 @@ class ProductMapper implements ProductMapperInterface
         if(!isset($category)) {
             $category = new CategoryDataTransferObject();
             $category->setName($csvDto->getCategoryName());
-            $this->categoryBusinessFacade->save($category);
+            $category = $this->categoryBusinessFacade->save($category);
         }
+
         $productDataTransferObject->setCategory($category);
 
         return $productDataTransferObject;

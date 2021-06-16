@@ -37,15 +37,16 @@ class LabelProductControllerTest extends TestCase
 
     protected function tearDown(): void
     {
-        parent::tearDown();
         $_GET = [];
         $this->productHelper->deleteTemporaryProducts();
+        parent::tearDown();
+
     }
 
     public function testAction()
     {
 
-        $path = dirname(__DIR__,4).'/App/Smarty/templates/labelProduct.tpl';
+        $path = dirname(__DIR__,6).'/App/System/Smarty/templates/labelProduct.tpl';
 
         $_GET['id'] = 1;
         $this->labelProductController->action();

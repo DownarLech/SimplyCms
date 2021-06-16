@@ -58,17 +58,7 @@ class CsvProductImporterTest extends TestCase
         $path = __DIR__ . '/../../../../CsvFile/csvDataInsert.csv';
         $csvDtoList = $this->csvProductImporter->loadDataAsCsvDto($path);
 
-        $productDtoList = [];
-        foreach ($csvDtoList as $csvDto) {
-            $productDtoList[] = $this->productMapper->mapFromCsv($csvDto);
-        }
-
-        foreach ($productDtoList as $product) {
-            self::assertInstanceOf(ProductDataTransferObject::class, $product);
-            $this->productBusinessFacade->save($product);
-            //  Cannot insert a value for auto-increment primary key
-            // allowPkInsert=true  into <table> schema.xml
-        }
+        $this->saveCsvInDB($csvDtoList);
 
         $productListFromDb = $this->productBusinessFacade->getProductList();
 
@@ -85,20 +75,15 @@ class CsvProductImporterTest extends TestCase
     public function testUpdateSaveAsCsvDto(): void
     {
         $path = __DIR__ . '/../../../../CsvFile/csvDataInsert.csv';
-        $this->csvProductImporter->loadDataAsCsvDto($path);
+        $csvDtoList = $this->csvProductImporter->loadDataAsCsvDto($path);
+
+        $this->saveCsvInDB($csvDtoList);
 
         $path = __DIR__ . '/../../../../CsvFile/csvDataUpdate.csv';
         $csvDtoList = $this->csvProductImporter->loadDataAsCsvDto($path);
 
-        $productDtoList = [];
-        foreach ($csvDtoList as $csvDto) {
-            $productDtoList[] = $this->productMapper->mapFromCsv($csvDto);
-        }
+        $this->saveCsvInDB($csvDtoList);
 
-        foreach ($productDtoList as $product) {
-            self::assertInstanceOf(ProductDataTransferObject::class, $product);
-            $this->productBusinessFacade->save($product);
-        }
 
         $productListFromDb = $this->productBusinessFacade->getProductList();
 
@@ -109,6 +94,21 @@ class CsvProductImporterTest extends TestCase
             self::assertSame($csvDto->getId(), $productFromDb->getId());
             self::assertSame($csvDto->getName(), $productFromDb->getName());
             self::assertSame($csvDto->getDescription(), $productFromDb->getDescription());
+        }
+    }
+
+    private function saveCsvInDB(array $csvDtoList): void
+    {
+        $productDtoList = [];
+        foreach ($csvDtoList as $csvDto) {
+            $productDtoList[] = $this->productMapper->mapFromCsv($csvDto);
+        }
+
+        foreach ($productDtoList as $product) {
+            self::assertInstanceOf(ProductDataTransferObject::class, $product);
+            $this->productBusinessFacade->save($product);
+            //  Cannot insert a value for auto-increment primary key
+            // allowPkInsert=true  into <table> schema.xml
         }
     }
 

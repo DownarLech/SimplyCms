@@ -2,9 +2,12 @@
 
 namespace App\Component\Product\Communication\Controllers\Backend;
 
+use App\Component\Category\Business\CategoryBusinessFacade;
+use App\Component\Category\Business\CategoryBusinessFacadeInterface;
 use App\Component\Product\Business\ProductBusinessFacade;
 use App\Component\Product\Business\ProductBusinessFacadeInterface;
 use App\Shared\Controller\BackendController;
+use App\Shared\Dto\CategoryDataTransferObject;
 use App\Shared\Dto\ProductDataTransferObject;
 use App\System\DI\Container;
 use App\System\Session\UserSession;
@@ -18,6 +21,7 @@ class ProductController implements BackendController
     private ViewService $viewService;
     private UserSession $userSession;
     private Redirect $redirect;
+    private CategoryBusinessFacadeInterface $categoryBusinessFacade;
 
 
     public function __construct(Container $container)
@@ -26,12 +30,13 @@ class ProductController implements BackendController
         $this->viewService = $container->get(ViewService::class);
         $this->userSession = $container->get(UserSession::class);
         $this->redirect = $container->get(Redirect::class);
+        $this->categoryBusinessFacade = $container->get(CategoryBusinessFacade::class);
     }
 
     public function init(): void
     {
         if (!$this->userSession->isLogIn()) {
-            $_SESSION['username']=true;
+            $_SESSION['username'] = true;
             $this->redirect->redirectToBackend('index.php?page=login&admin=true');
         }
     }
@@ -49,10 +54,12 @@ class ProductController implements BackendController
                         }
                         $productName = (string)trim($_POST['productname']);
                         $description = (string)trim($_POST['description']);
-                        $categoryName = (string)trim($_POST['categoryName']);
-                        $this->saveProduct($productId, $productName, $description, $categoryName);
+                        //$this->saveProduct($productId, $productName, $description);
 
-                        $this->redirect->redirectToBackend('index.php?page=productLis&admin=true');
+                        $categoryName = (string)trim($_POST['categoryName']);
+                        $this->saveProductWithCategory($productId, $productName, $description, $categoryName);
+
+                        $this->redirect->redirectToBackend('index.php?page=productList&admin=true');
                     }
                     break;
                 case (isset($_POST['delete'])):
@@ -64,6 +71,7 @@ class ProductController implements BackendController
         }
         $this->loadView();
     }
+
 
     private function deleteProduct(int $productId): void
     {
@@ -90,6 +98,30 @@ class ProductController implements BackendController
         $this->productBusinessFacade->save($productDataTransferObject);
     }
 
+    private function saveProductWithCategory(int $productId, string $productName, string $description, string $categoryName): void
+    {
+        if ($productId !== 0) {
+            $productDataTransferObject = $this->productBusinessFacade->getProductById($productId);
+
+            $productDataTransferObject->setId($productId);
+
+        } else {
+            $productDataTransferObject = new ProductDataTransferObject();
+            $productDataTransferObject->setId(0);
+        }
+        $productDataTransferObject->setName($productName);
+        $productDataTransferObject->setDescription($description);
+
+        $category = $this->categoryBusinessFacade->getCategoryByName($categoryName);
+        if (!isset($category)) {
+            $category = new CategoryDataTransferObject();
+            $category->setName($categoryName);
+            $category = $this->categoryBusinessFacade->save($category);
+        }
+        $productDataTransferObject->setCategory($category);
+
+        $this->productBusinessFacade->save($productDataTransferObject);
+    }
 
     public function loadView(): void
     {

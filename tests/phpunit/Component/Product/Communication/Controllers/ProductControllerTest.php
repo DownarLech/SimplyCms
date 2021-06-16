@@ -37,9 +37,10 @@ class ProductControllerTest extends TestCase
 
     protected function tearDown(): void
     {
-        parent::tearDown();
         $_GET = [];
         $this->productHelper->deleteTemporaryProducts();
+        parent::tearDown();
+
     }
 
     public function setUpIntegrationTest(): void
@@ -70,10 +71,30 @@ class ProductControllerTest extends TestCase
 
         $this->productController->action();
 
-        $valueFromDatabase = $this->productRepository->getProduct(1);
+        $valueFromDatabase = $this->productRepository->getProductById(1);
 
         self::assertSame('william', $valueFromDatabase->getName());
         self::assertSame('lorem william', $valueFromDatabase->getDescription());
+    }
+
+    public function testActionSaveProductWithCategory(): void
+    {
+        $this->setUpIntegrationTest();
+
+        $_SERVER['REQUEST_METHOD'] = 'POST';
+        $_POST['save'] = '1';
+        $_POST['productname'] = 'william';
+        $_POST['description'] = 'lorem william';
+        $_POST['categoryName'] = 'tablet';
+
+        $this->productController->action();
+
+        $valueFromDatabase = $this->productRepository->getProductById(1);
+
+        self::assertSame('william', $valueFromDatabase->getName());
+        self::assertSame('lorem william', $valueFromDatabase->getDescription());
+        self::assertSame('tablet', $valueFromDatabase->getCategory()->getName());
+
     }
 
 /*
@@ -98,7 +119,7 @@ class ProductControllerTest extends TestCase
 
         $this->productController->action();
 
-        self::assertNull($this->productRepository->getProduct(1), 'NULL. The product was deleted.');
+        self::assertNull($this->productRepository->getProductById(1), 'NULL. The product was deleted.');
     }
 
 /*

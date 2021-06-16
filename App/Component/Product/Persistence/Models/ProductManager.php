@@ -77,7 +77,7 @@ class ProductManager implements ProductManagerInterface
                 ->setCategoryId($categoryId)
                 ->save();
 
-          $id = $product->getId();
+            $id = $product->getId();
         }
 
         $productDataTransferObjectNew = new ProductDataTransferObject();

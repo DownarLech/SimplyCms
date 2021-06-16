@@ -11,7 +11,9 @@
                 </div>
                 <p class="mb-1 p-2">{$product->getDescription()}</p>
 
-                <p class="mb-1 p-2">{$product->getCategory()->getName()}</p>
+                {if isset($product->getCategory()) }
+                    <p class="mb-1 p-2">{$product->getCategory()->getName()}</p>
+                {/if}
             </a>
             <form class="form-example margin-bigger" action="" method="post" id="update_form">
                 <div class="text-center">

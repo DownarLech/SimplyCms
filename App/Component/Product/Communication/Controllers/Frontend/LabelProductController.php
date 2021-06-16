@@ -35,7 +35,7 @@ class LabelProductController implements Controller
             if (!$pageId) {
                 throw new \Exception();
             }
-            $this->viewService->addTlpParam('product', $this->productBusinessFacade->getProduct($pageId));
+            $this->viewService->addTlpParam('product', $this->productBusinessFacade->getProductById($pageId));
             $this->viewService->setTemplate('labelProduct.tpl');
 
         } catch (\Exception $e) {

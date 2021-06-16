@@ -129,6 +129,5 @@ class ProductManagerTest extends TestCase
         self::assertSame('filip', $valueFromDatabase->getName());
         self::assertSame('lorem filip', $valueFromDatabase->getDescription());
         self::assertNull($valueFromDatabase->getCategory());
-
     }
 }

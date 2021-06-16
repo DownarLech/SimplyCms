@@ -21,8 +21,8 @@ class ListControllerTest extends TestCase
 
     protected function tearDown(): void
     {
-        parent::tearDown();
         $this->productHelper->deleteTemporaryProducts();
+        parent::tearDown();
     }
 
     public function testActio()
@@ -37,7 +37,7 @@ class ListControllerTest extends TestCase
         $list = new ListController($container);
         $list->action();
 
-        $path = dirname(__DIR__,4).'/App/Smarty/templates/list.tpl';
+        $path = dirname(__DIR__,6).'/App/System/Smarty/templates/list.tpl';
 
         self::assertStringEndsWith('list.tpl', $viewService->getTemplate());
         self::assertFileEquals($path, $viewService->getTemplate());
