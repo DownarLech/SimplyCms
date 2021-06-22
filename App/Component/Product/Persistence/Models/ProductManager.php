@@ -63,7 +63,7 @@ class ProductManager implements ProductManagerInterface
                     ->setCategoryId($categoryId)
                     ->save();
             } else {
-                $product = new Product(); //dodalem teraz, validator?
+                $product = new Product(); // validator?
                 $product->setId($id)
                     ->setProductname($productName)
                     ->setDescription($description)

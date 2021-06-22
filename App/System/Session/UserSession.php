@@ -29,7 +29,7 @@ class UserSession
     */
 
 
-    public function steUserName(string $userName): void
+    public function setUserName(string $userName): void
     {
         $_SESSION['username'] = $userName;
 

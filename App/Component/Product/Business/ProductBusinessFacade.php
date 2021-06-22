@@ -40,9 +40,4 @@ class ProductBusinessFacade implements ProductBusinessFacadeInterface
     {
         return $this->productRepository->getProductById($id);
     }
-
-
-
-
-
 }

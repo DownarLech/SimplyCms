@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace App\Component\Product\Persistence\Csv;
+namespace App\Component\Product\Business\Csv;
 
-use App\Component\Product\Persistence\Csv\Mapper\CsvMapper;
-use App\Component\Product\Persistence\Csv\Mapper\CsvMapperInterface;
+use App\Component\Product\Business\Csv\Mapper\CsvMapper;
+use App\Component\Product\Business\Csv\Mapper\CsvMapperInterface;
 use App\Shared\Csv\CsvImporter;
 use App\Shared\Dto\CsvDataTransferObject;
 use App\System\DI\Container;

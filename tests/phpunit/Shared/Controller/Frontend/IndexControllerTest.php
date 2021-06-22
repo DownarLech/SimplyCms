@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Test;
+namespace Test\phpunit\Shared\Controller\Frontend;
 
 
 use App\Shared\Controller\Frontend\IndexController;
@@ -31,11 +31,11 @@ class IndexControllerTest extends TestCase
         $home = new IndexController($container);
         $home->action();
 
-        $path = dirname(__DIR__,4).'/App/Smarty/templates/index.tpl';
+        $path = dirname(__DIR__,5).'/App/System/Smarty/templates/index.tpl';
 
         self::assertStringEndsWith('index.tpl', $viewService->getTemplate());
         self::assertFileEquals($path, $viewService->getTemplate());
-
     }
+
 
 }

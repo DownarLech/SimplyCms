@@ -6,7 +6,6 @@ use App\Shared\Dto\UserDataTransferObject;
 use Generated\User;
 use Generated\UserQuery;
 
-
 class UserManager implements UserManagerInterface
 {
 

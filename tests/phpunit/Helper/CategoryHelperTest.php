@@ -60,4 +60,9 @@ class CategoryHelperTest extends TestCase
         $stmt = $con->prepare($sql);
         $stmt->execute();
     }
+
+    public function testTrue(): void
+    {
+        self::assertTrue(true);
+    }
 }

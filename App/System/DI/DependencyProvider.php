@@ -6,9 +6,9 @@ use App\Component\Category\Business\CategoryBusinessFacade;
 use App\Component\Category\Persistence\Mapper\CategoryMapper;
 use App\Component\Category\Persistence\Models\CategoryManager;
 use App\Component\Category\Persistence\Models\CategoryRepository;
+use App\Component\Product\Business\Csv\CsvProductImporter;
+use App\Component\Product\Business\Csv\Mapper\CsvMapper;
 use App\Component\Product\Business\ProductBusinessFacade;
-use App\Component\Product\Persistence\Csv\CsvProductImporter;
-use App\Component\Product\Persistence\Csv\Mapper\CsvMapper;
 use App\Component\Product\Persistence\Mapper\ProductMapper;
 use App\Component\Product\Persistence\Models\ProductManager;
 use App\Component\Product\Persistence\Models\ProductRepository;
@@ -20,7 +20,6 @@ use App\Shared\Csv\CsvImporter;
 use App\System\Session\UserSession;
 use App\System\Smarty\Redirect;
 use App\System\Smarty\ViewService;
-use Propel\Generator\Builder\Om\QueryBuilder;
 
 class DependencyProvider
 {

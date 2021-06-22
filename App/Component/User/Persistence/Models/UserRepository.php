@@ -8,7 +8,6 @@ use App\Shared\Dto\UserDataTransferObject;
 use App\System\DI\Container;
 use Generated\UserQuery;
 
-
 class UserRepository implements UserRepositoryInterface
 {
     private array $userList = [];
@@ -44,7 +43,6 @@ class UserRepository implements UserRepositoryInterface
         return $this->userMapper->mapFromPropel($arrayData);
     }
 
-
     public function getUserById(int $id): ?UserDataTransferObject
     {
         $arrayData = UserQuery::create()->findOneById($id);
@@ -55,5 +53,4 @@ class UserRepository implements UserRepositoryInterface
         return $this->userMapper->mapFromPropel($arrayData);
 
     }
-
 }

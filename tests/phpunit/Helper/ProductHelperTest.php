@@ -99,4 +99,9 @@ class ProductHelperTest extends TestCase
         $stmt->execute();
     }
 
+    public function testTrue(): void
+    {
+        self::assertTrue(true);
+    }
+
 }

@@ -44,8 +44,8 @@ class LoginController implements BackendController
                 $password = (string)trim($_POST['password']);
                // if ($this->userRepository->getUser($username, $password)) {
                 if ($this->userBusinessFacade->getUser($username, $password)) {
-                        $this->userSession->steUserName($username);
-                    $this->redirect->redirectToBackend('index.php?page=category&admin=true');
+                        $this->userSession->setUserName($username);
+                    $this->redirect->redirectToBackend('index.php?page=productList&admin=true');
                 }
                 $this->viewService->setTemplate('error.tpl');
             }

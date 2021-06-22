@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Test;
+namespace Test\phpunit\Shared\Controller\Frontend;
 
 
 use App\Shared\Controller\Frontend\HomeController;
@@ -33,7 +33,7 @@ class HomeControllerTest extends TestCase
         $home = new HomeController($container);
         $home->action();
 
-        $path = dirname(__DIR__,4).'/App/Smarty/templates/home.tpl';
+        $path = dirname(__DIR__,5).'/App/System/Smarty/templates/home.tpl';
 
         self::assertStringEndsWith('home.tpl', $viewService->getTemplate());
         self::assertFileEquals($path, $viewService->getTemplate());

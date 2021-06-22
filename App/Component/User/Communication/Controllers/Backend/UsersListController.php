@@ -2,7 +2,6 @@
 
 namespace App\Component\User\Communication\Controllers\Backend;
 
-
 use App\Component\User\Business\UserBusinessFacade;
 use App\Component\User\Business\UserBusinessFacadeInterface;
 use App\Shared\Controller\BackendController;

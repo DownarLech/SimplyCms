@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Test;
+namespace Test\phpunit\Shared\Controller\Frontend;
 
 
 use App\Shared\Controller\Frontend\ErrorController;
@@ -32,7 +32,7 @@ class ErrorControllerTest extends TestCase
         $home = new ErrorController($container);
         $home->action();
 
-        $path = dirname(__DIR__,4).'/App/Smarty/templates/error.tpl';
+        $path = dirname(__DIR__,5).'/App/System/Smarty/templates/error.tpl';
 
         self::assertStringEndsWith('error.tpl', $viewService->getTemplate());
         self::assertFileEquals($path, $viewService->getTemplate());

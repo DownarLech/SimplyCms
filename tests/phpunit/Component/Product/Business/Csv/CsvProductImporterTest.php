@@ -1,17 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace Test;
+namespace Test\phpunit\Component\Product\Business\Csv;
 
+use App\Component\Product\Business\Csv\CsvProductImporter;
 use App\Component\Product\Business\ProductBusinessFacade;
 use App\Component\Product\Business\ProductBusinessFacadeInterface;
-use App\Component\Product\Persistence\Csv\CsvProductImporter;
 use App\Component\Product\Persistence\Mapper\ProductMapper;
 use App\Component\Product\Persistence\Mapper\ProductMapperInterface;
 use App\Shared\Dto\ProductDataTransferObject;
 use App\System\DI\Container;
 use App\System\DI\DependencyProvider;
 use PHPUnit\Framework\TestCase;
-use Propel\Runtime\Propel;
 use Test\phpunit\Helper\CategoryHelperTest;
 use Test\phpunit\Helper\ProductHelperTest;
 

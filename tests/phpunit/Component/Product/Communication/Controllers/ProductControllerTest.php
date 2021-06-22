@@ -1,7 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Test;
-
+namespace Test\phpunit\Component\Product\Communication\Controllers;
 
 use App\Component\Product\Communication\Controllers\Backend\ProductController;
 use App\Component\Product\Persistence\Models\ProductRepository;
@@ -68,6 +67,7 @@ class ProductControllerTest extends TestCase
         $_POST['save'] = '1';
         $_POST['productname'] = 'william';
         $_POST['description'] = 'lorem william';
+        $_POST['categoryName'] = ''; // Is this correct? Manually provide an empty string?
 
         $this->productController->action();
 
@@ -77,6 +77,9 @@ class ProductControllerTest extends TestCase
         self::assertSame('lorem william', $valueFromDatabase->getDescription());
     }
 
+    /**
+     * @runInSeparateProcess
+     */
     public function testActionSaveProductWithCategory(): void
     {
         $this->setUpIntegrationTest();

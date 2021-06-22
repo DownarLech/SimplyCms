@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Test;
+namespace Test\phpunit\Component\User\Persistence\Models;
 
 use App\Component\User\Persistence\Models\UserManager;
 use App\Component\User\Persistence\Models\UserRepository;

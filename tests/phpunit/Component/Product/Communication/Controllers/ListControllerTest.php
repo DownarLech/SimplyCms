@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Test;
+namespace Test\phpunit\Component\Product\Communication\Controllers;
 
 use App\Component\Product\Communication\Controllers\Frontend\ListController;
 use App\System\DI\Container;

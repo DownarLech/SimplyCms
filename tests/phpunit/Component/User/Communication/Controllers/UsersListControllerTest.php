@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Test;
+namespace Test\phpunit\Component\User\Communication\Controllers;
 
 use App\Component\User\Communication\Controllers\Backend\UsersListController;
 use App\System\DI\Container;

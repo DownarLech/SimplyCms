@@ -1,10 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Test;
-
+namespace Test\phpunit\Component\Product\Communication\Controllers;
 
 use App\Component\Product\Communication\Controllers\Frontend\LabelProductController;
-use App\Component\Product\Persistence\Models\ProductRepository;
 use App\System\DI\Container;
 use App\System\DI\DependencyProvider;
 use App\System\Smarty\ViewService;
@@ -16,7 +14,6 @@ class LabelProductControllerTest extends TestCase
 
     private ProductHelperTest $productHelper;
     private ViewService $viewService;
-    private ProductRepository $productRepository;
     private LabelProductController $labelProductController;
 
     protected function setUp(): void
@@ -29,7 +26,6 @@ class LabelProductControllerTest extends TestCase
 
         $this->viewService = $container->get(ViewService::class);
         $this->labelProductController = new LabelProductController($container);
-        $this->productRepository = new ProductRepository($container);
         $this->productHelper = new ProductHelperTest();
 
         $this->productHelper->createTemporaryProducts();

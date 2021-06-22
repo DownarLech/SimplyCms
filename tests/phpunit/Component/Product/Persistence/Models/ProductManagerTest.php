@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Test;
+namespace Test\phpunit\Component\Product\Persistence\Models;
 
 use App\Component\Category\Persistence\Models\CategoryManager;
 use App\Component\Product\Persistence\Models\ProductManager;
